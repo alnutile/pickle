@@ -1,4 +1,4 @@
-# dg
+# GD
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -7,6 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+Gherkin to Dusk
 
 This will attempt to make a easy way to work with Dusk from a Gherkin formatted file.
 In someways Behat but built around Dusk and how it goes about making the underlaying
