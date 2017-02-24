@@ -1,0 +1,54 @@
+{
+    "name": "alnutile/gd",
+    "type": "library",
+    "description": "Gherkin to Dusk",
+    "keywords": [
+        "alnutile",
+        "gd"
+    ],
+    "homepage": "https://github.com/alnutile/gd",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alfred Nutile",
+            "email": "me@alfrednutile.info",
+            "homepage": "https://alfrednutile.info",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~5.6|~7.0",
+        "behat/behat": "^3.3",
+        "larapack/dd": "1.*",
+        "mnapoli/silly": "^1.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0||~5.0",
+        "squizlabs/php_codesniffer": "^2.3",
+        "symfony/filesystem": "^3.2",
+        "symfony/finder": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "GD\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GD\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
