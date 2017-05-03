@@ -2,49 +2,81 @@
 
 namespace GD;
 
+use Behat\Gherkin\Gherkin;
+use Behat\Gherkin\Keywords\CucumberKeywords;
+use Behat\Gherkin\Lexer;
+use Behat\Gherkin\Loader\GherkinFileLoader;
+use Behat\Gherkin\Loader\YamlFileLoader;
+use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
-use GD\Helpers\FileSystemHelper;
+use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
 
-class GherkinToDusk
+class GherkinToDusk extends BaseGherkinToDusk
 {
-    use FileSystemHelper;
+
+    /**
+     * @var Parser
+     */
+    protected $parser;
 
     protected $component = false;
 
     protected $string_contents = null;
 
     /**
-     * Create a new Skeleton Instance
+     * Yml Content of a test yml
+     * @var array
      */
-    public function __construct()
-    {
-        // constructor body
-    }
+    protected $feature_content;
 
-    public function handle() {
 
-        $this->getSourcePath();
 
-        $this->getFiles();
+    public function initializeFeature() {
 
-        if($this->component == 'initialize-file') {
-            $this->initializeFile();
-        } else {
-            //just run them all
+        if($this->context == 'domain') {
+            $this->featureToUnit();
         }
 
     }
 
-    private function initializeFile()
+    protected function featureToUnit() {
+//        $this->feature_content =
+//            $this->getFilesystem()->get($this->getFileNameAndPath());
+//
+//
+//        $keywords = new CucumberKeywords($this->getFileNameAndPath());
+//        $lexer = new Lexer($keywords);
+//        $gherkin = new Parser($lexer);
+//
+//        $fileload = new GherkinFileLoader($gherkin);
+//        $results = $fileload->supports($this->getFileNameAndPath());
+//        $results = $fileload->load($this->getFileNameAndPath());
+
+        $this->loadFileContent();
+
+
+        dd($this->feature_content);
+
+
+        //dd($gherkin->parse($this->feature_content, []));
+
+    }
+
+    /**
+     * @return Parser
+     */
+    public function getParser()
     {
-        //Should have file_name set in the path to file
-        if(!$this->file_name_and_path) {
-            throw new MustSetFileNameAndPath(sprintf("Must set file and path for .feature to initialize"));
-        }
-        //should now have file (one) in array
-        //and should read that .feature file
-        //and turn it into stubbed php unit test
-        //based on the type domain or unit
+        return $this->parser;
+    }
+
+    /**
+     * @param Parser $parser
+     */
+    public function setParser($parser)
+    {
+        $this->parser = $parser;
     }
 
     /**
@@ -61,6 +93,27 @@ class GherkinToDusk
     public function setComponent($component)
     {
         $this->component = $component;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeatureContent()
+    {
+        return $this->feature_content;
+    }
+
+    /**
+     * @param mixed $feature_content
+     */
+    public function setFeatureContent($feature_content)
+    {
+        $this->feature_content = $feature_content;
+    }
+
+    private function loadFileContent()
+    {
+        $this->feature_content = $this->filesystem->get(getcwd() . DIRECTORY_SEPARATOR . $this->getPathToFeature());
     }
 
 }

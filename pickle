@@ -1,0 +1,129 @@
+#!/usr/bin/env php
+<?php
+
+if (is_file($autoload = __DIR__.'/vendor/autoload.php')) {
+    require $autoload;
+} else {
+    require __DIR__ . '/../../../vendor/autoload.php';
+}
+
+use Behat\Gherkin\Keywords\CucumberKeywords;
+use Behat\Gherkin\Lexer;
+use Illuminate\Console\Parser;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+
+
+$app = new Silly\Edition\Pimple\Application();
+
+$pimple = $app->getContainer();
+
+$pimple[\Behat\Gherkin\Parser::class] = function() {
+    $il8n = __DIR__ . '/../src/i18n.yml';
+
+    $keywords = new CucumberKeywords($il8n);
+
+    $keywords->setLanguage('en');
+
+    $lexer = new Lexer($keywords);
+
+    $parser = new Parser($lexer);
+    return $parser;
+};
+
+
+$pimple[Illuminate\Filesystem\Filesystem::class] = function() {
+    return new \Illuminate\Filesystem\Filesystem();
+};
+
+
+$pimple[GD\GherkinToDusk::class] = function() use ($pimple) {
+    $gd = new GD\GherkinToDusk($pimple[Illuminate\Filesystem\Filesystem::class]);
+
+    $gd->setParser($pimple[\Behat\Gherkin\Parser::class]);
+
+    return $gd;
+};
+
+
+$app->command('initialize [--context=] relative_feature_file_path', function (
+    OutputInterface $output,
+    GD\GherkinToDusk $gd, $context, $relative_feature_file_path) {
+
+    //get source path of file
+    $gd->setContext($context)
+        ->setPathToFeature($relative_feature_file_path)
+        ->initializeFeature();
+
+    //see if we have a matching class
+    //if we do not then make the needed Class
+    // and using the $context we can put it into the proper dusk folder
+    //with the right name
+    //and then add the Scenario
+    //and all the related Steps
+    //and if it has a Background for Setup needs
+
+    $output->write("\n****done*****\n");
+
+})->defaults([
+    'context' => "domain"
+])->descriptions("This will stuff out your feature into a Dusk Test file",
+    [
+        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
+        "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"
+    ]
+);
+
+
+
+$app->command('update [--context=]', function (
+    OutputInterface $output,
+    \Illuminate\Filesystem\Filesystem $files, $context) {
+
+    //get path of file
+    //find the matching class
+    //make sure the order is there
+    //and all the methods are there
+    //for example:
+    //Scenario: Foo Bar
+    //  Given I am doing x
+    //  And I do y
+    //  Then I should have z
+    //Then there should be a method
+    // public function testFooBar() {
+    //And if there are Steps then that would have those steps
+    //   $this->givenIAmDoingX()
+    //   $this->andIDoY()
+    //   $this->thenIShouldHaveZ
+    $output->write("\n****done*****\n");
+
+})->defaults([
+    'context' => "domain"
+])->descriptions("This will review the file and stub out new Steps and or Scenarios",
+    [
+        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside"
+    ]);
+
+$app->command('run', function (
+    OutputInterface $output,
+    \Illuminate\Filesystem\Filesystem $files) {
+
+    //get path of file
+    //then find the matching test
+    //and pass that as a filter to Dusk
+    //at this point though the user can just be using dusk
+    // run all
+    // run context folder
+    // run ui files
+    // Dusk knows all about this
+    $output->write("\n****done*****\n");
+
+})->defaults([])->descriptions("This will stuff out your feature into a Dusk Test file",
+    []);
+
+
+
+$app->run();

@@ -10,7 +10,6 @@ trait FileSystemHelper
 
     protected $files = [];
 
-    protected $file_name_and_path = null;
 
     protected $source_path = null;
 
@@ -19,45 +18,7 @@ trait FileSystemHelper
      */
     protected $finder = null;
 
-    /**
-     * @return null
-     */
-    public function getFileNameAndPath()
-    {
-        return $this->file_name_and_path;
-    }
 
-    /**
-     * @param null $file_name_and_path
-     */
-    public function setFileNameAndPath($file_name_and_path)
-    {
-        $this->file_name_and_path = $file_name_and_path;
-    }
-
-
-    /**
-     * @return null
-     */
-    public function getSourcePath()
-    {
-        if($this->source_path == null) {
-            $this->setSourcePath();
-        }
-        return $this->source_path;
-    }
-
-    /**
-     * @param null $source_path
-     */
-    public function setSourcePath($source_path = null)
-    {
-        if(!$source_path) {
-            $source_path = getcwd();
-        }
-
-        $this->source_path = $source_path;
-    }
 
     private function getFiles()
     {
