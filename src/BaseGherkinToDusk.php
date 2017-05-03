@@ -3,7 +3,6 @@
 
 namespace GD;
 
-
 use Illuminate\Filesystem\Filesystem;
 
 class BaseGherkinToDusk
@@ -74,7 +73,7 @@ class BaseGherkinToDusk
      */
     public function getFileNameAndPath()
     {
-        if($this->file_name_and_path == null) {
+        if ($this->file_name_and_path == null) {
             $this->setFileNameAndPath();
         }
         return $this->file_name_and_path;
@@ -85,7 +84,7 @@ class BaseGherkinToDusk
      */
     public function setFileNameAndPath($file_name_and_path = null)
     {
-        if(!$file_name_and_path) {
+        if (!$file_name_and_path) {
             $file_name_and_path =
                 $this->getSourcePath() . $this->features_folder . $this->getFileName();
         }
@@ -100,7 +99,7 @@ class BaseGherkinToDusk
      */
     public function getSourcePath()
     {
-        if($this->source_path == null) {
+        if ($this->source_path == null) {
             $this->setSourcePath();
         }
         return $this->source_path;
@@ -111,12 +110,11 @@ class BaseGherkinToDusk
      */
     public function setSourcePath($source_path = null)
     {
-        if(!$source_path) {
+        if (!$source_path) {
             $source_path = getcwd() . '/tests/features/';
         }
 
         $this->source_path = $source_path;
-
     }
 
     /**
@@ -132,7 +130,7 @@ class BaseGherkinToDusk
      */
     public function setDestinationFolderRoot($destination_folder_root = null)
     {
-        if(!$destination_folder_root) {
+        if (!$destination_folder_root) {
             $destination_folder_root = getcwd() . '/tests/';
         }
 

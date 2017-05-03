@@ -32,15 +32,16 @@ class GherkinToDusk extends BaseGherkinToDusk
 
 
 
-    public function initializeFeature() {
+    public function initializeFeature()
+    {
 
-        if($this->context == 'domain') {
+        if ($this->context == 'domain') {
             $this->featureToUnit();
         }
-
     }
 
-    protected function featureToUnit() {
+    protected function featureToUnit()
+    {
 //        $this->feature_content =
 //            $this->getFilesystem()->get($this->getFileNameAndPath());
 //
@@ -60,7 +61,6 @@ class GherkinToDusk extends BaseGherkinToDusk
 
 
         //dd($gherkin->parse($this->feature_content, []));
-
     }
 
     /**
@@ -115,5 +115,4 @@ class GherkinToDusk extends BaseGherkinToDusk
     {
         $this->feature_content = $this->filesystem->get(getcwd() . DIRECTORY_SEPARATOR . $this->getPathToFeature());
     }
-
 }

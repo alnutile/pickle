@@ -3,9 +3,6 @@
 
 namespace GD\Tests;
 
-
-
-
 use Behat\Gherkin\Keywords\CucumberKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
@@ -29,7 +26,8 @@ class InitializeFileTest extends TestCase
      */
     protected $gd;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->file = new Filesystem();
         $this->gd = new \GD\GherkinToDusk($this->file);
 
@@ -52,7 +50,8 @@ class InitializeFileTest extends TestCase
     /**
      * @test
      */
-    public function should_convert_gherkin_file_to_matching_unit_test() {
+    public function shouldConvertGherkinFileToMatchingUnitTest()
+    {
 
         $file_to_convert = $this->getFixtureFeature('test_naming.feature');
 
@@ -66,23 +65,8 @@ class InitializeFileTest extends TestCase
          * How to get the steps out of it cleanly
          *
          */
-
     }
-
-    /**
-     * @test
-     */
-    public function should_limit_to_one_file() {
-
-    }
-
-    /**
-     * @test
-     */
-    public function should_convert_yaml_to_array() {
-
-    }
-
+    
     private function setupFolderAndFile()
     {
         $path = $this->gd->getSourcePath();
@@ -90,22 +74,23 @@ class InitializeFileTest extends TestCase
         /**
          * This can be come a path relative issue
          */
-        if(!$this->file->exists($path)) {
+        if (!$this->file->exists($path)) {
             $this->file->makeDirectory($path, 0777, true);
             $this->file->copy(
                 $this->gd->getSourcePath() . '../fixtures/features/test_naming.feature',
-                $this->gd->getSourcePath() . 'test_naming.feature');
+                $this->gd->getSourcePath() . 'test_naming.feature'
+            );
         }
-
     }
 
-    protected function tearDown() {
+    protected function tearDown()
+    {
         $path = $this->gd->getSourcePath();
 
         /**
          * This can be come a path relative issue
          */
-        if($this->file->exists($path)) {
+        if ($this->file->exists($path)) {
             $this->file->deleteDirectory($path);
         }
     }
@@ -114,6 +99,4 @@ class InitializeFileTest extends TestCase
     {
         return $this->file->get(__DIR__ . sprintf('/features/%s', $string));
     }
-
-
 }
