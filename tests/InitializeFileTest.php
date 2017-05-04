@@ -66,13 +66,13 @@ class InitializeFileTest extends TestCase
         \PHPUnit_Framework_Assert::assertContains("I have a profile created", $step_1->getText());
 
         \PHPUnit_Framework_Assert::assertEquals("Given", $step_1->getKeyword());
-
     }
 
     /**
      * @test
      */
-    public function shouldSetProperDuskTestName() {
+    public function shouldSetProperDuskTestName()
+    {
 
         $file_to_convert = $this->getFixtureFeature('test_naming.feature');
         $path = 'tests/features/test_naming.feature';
@@ -85,7 +85,8 @@ class InitializeFileTest extends TestCase
     /**
      * @test
      */
-    public function shouldContainTextFromFeatureConvertedIntoUnitTest() {
+    public function shouldContainTextFromFeatureConvertedIntoUnitTest()
+    {
 
         $file_to_convert = $this->getFixtureFeature('test_naming.feature');
         $path = 'tests/features/test_naming.feature';
@@ -100,30 +101,28 @@ class InitializeFileTest extends TestCase
         \PHPUnit_Framework_Assert::assertNotEmpty($this->gd->getDuskClassAndMethods());
         \PHPUnit_Framework_Assert::assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
         \PHPUnit_Framework_Assert::assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
-
-        dd($this->gd->getDuskClassAndMethods());
     }
 
     /**
      * @test
      */
-    public function shouldCreateFile() {
-
+    public function shouldCreateFile()
+    {
     }
 
     /**
      * @test
      */
-    public function shouldPutTheMethodsInTheFileAsNeeded() {
-
+    public function shouldPutTheMethodsInTheFileAsNeeded()
+    {
     }
 
 
     /**
      * @test
      */
-    public function shouldGetTaggedOnly() {
-
+    public function shouldGetTaggedOnly()
+    {
     }
 
     private function setupFolderAndFile()

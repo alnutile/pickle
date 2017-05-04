@@ -54,7 +54,6 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected function featureToUnit()
     {
-
     }
 
     /**
@@ -141,21 +140,19 @@ class GherkinToDusk extends BaseGherkinToDusk
 
         //2) and sub items it has eg the steps
         //   makesure their names are correct
-
     }
 
     private function iterateOverScenariosAndBuildUpClassMethods()
     {
         /** @var  $feature \Behat\Gherkin\Node\ScenarioNode */
-        foreach($this->parsed_feature->getScenarios() as $scenario_index => $scenario) {
-
+        foreach ($this->parsed_feature->getScenarios() as $scenario_index => $scenario) {
             $parent_method_name = ucfirst(camel_case($scenario->getTitle()));
 
             $this->dusk_class_and_methods[$scenario_index] = [
                 'parent' => sprintf('test%s', $parent_method_name)
             ];
 
-            foreach($scenario->getSteps() as $step_index => $step) {
+            foreach ($scenario->getSteps() as $step_index => $step) {
                 $method_name = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
                 $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index] = $method_name;
             }
@@ -164,7 +161,7 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     private function buildDuskTestName()
     {
-        if(!$this->dusk_test_name) {
+        if (!$this->dusk_test_name) {
             $name = $this->filesystem->name($this->getFullPathToFileAndFileName());
             $this->dusk_test_name = ucfirst(camel_case($name) . 'Test');
         }
