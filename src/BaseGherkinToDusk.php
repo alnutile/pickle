@@ -31,9 +31,9 @@ class BaseGherkinToDusk
     protected $destination_folder_root = null;
 
     /**
-     * @var null Filesystem
+     * @var Filesystem
      */
-    protected $filesystem = null;
+    protected $filesystem;
 
     /**
      * @var Parser

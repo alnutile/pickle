@@ -21,7 +21,7 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     /**
      * Yml Content of a test yml
-     * @var array
+     * @var string
      */
     protected $feature_content;
 
@@ -106,7 +106,7 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     private function loadFileContent()
     {
-        $this->feature_content = $this->filesystem->get($this->getFullPathToFileAndFileName());
+        $this->feature_content = $this->getFilesystem()->get($this->getFullPathToFileAndFileName());
     }
 
     private function passThroughParser()
@@ -162,7 +162,7 @@ class GherkinToDusk extends BaseGherkinToDusk
     private function buildDuskTestName()
     {
         if (!$this->dusk_test_name) {
-            $name = $this->filesystem->name($this->getFullPathToFileAndFileName());
+            $name = $this->getFilesystem()->name($this->getFullPathToFileAndFileName());
             $this->dusk_test_name = ucfirst(camel_case($name) . 'Test');
         }
     }
