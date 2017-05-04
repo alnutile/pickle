@@ -3,6 +3,7 @@
 
 namespace GD;
 
+use Behat\Gherkin\Parser;
 use Illuminate\Filesystem\Filesystem;
 
 class BaseGherkinToDusk
@@ -15,6 +16,8 @@ class BaseGherkinToDusk
     protected $context = "domain";
 
     protected $path_to_feature = null;
+
+
 
     /**
      * Conventions
@@ -32,10 +35,15 @@ class BaseGherkinToDusk
      */
     protected $filesystem = null;
 
-    public function __construct(Filesystem $filesystem)
-    {
+    /**
+     * @var Parser
+     */
+    protected $parser;
 
+    public function __construct(Filesystem $filesystem, Parser $parser = null)
+    {
         $this->filesystem = $filesystem;
+        $this->parser = $parser;
     }
 
 
@@ -90,6 +98,8 @@ class BaseGherkinToDusk
         }
 
         $this->file_name_and_path = $file_name_and_path;
+
+        return $this;
     }
 
 

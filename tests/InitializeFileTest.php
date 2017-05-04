@@ -29,20 +29,12 @@ class InitializeFileTest extends TestCase
     public function setUp()
     {
         $this->file = new Filesystem();
-        $this->gd = new \GD\GherkinToDusk($this->file);
-
         $il8n = __DIR__ . '/../src/i18n.yml';
-
         $keywords = new CucumberKeywords($il8n);
-
         $keywords->setLanguage('en');
-
         $lexer = new Lexer($keywords);
-
         $parser = new Parser($lexer);
-
-        $this->gd->setParser($parser);
-
+        $this->gd = new \GD\GherkinToDusk($this->file, $parser);
 
         $this->setupFolderAndFile();
     }
@@ -59,14 +51,81 @@ class InitializeFileTest extends TestCase
 
         \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $feature);
 
-        /**
-         * How to get this into an array
-         * How to get the Scenario out of it
-         * How to get the steps out of it cleanly
-         *
-         */
+        \PHPUnit_Framework_Assert::assertEquals(2, count($feature->getScenarios()));
+
+        $scenario_1 = $feature->getScenarios()[0];
+
+        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\ScenarioNode::class, $scenario_1);
+
+        \PHPUnit_Framework_Assert::assertEquals(1, count($scenario_1->getTags()));
+
+        $step_1 = $scenario_1->getSteps()[0];
+
+        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\StepNode::class, $step_1);
+
+        \PHPUnit_Framework_Assert::assertContains("I have a profile created", $step_1->getText());
+
+        \PHPUnit_Framework_Assert::assertEquals("Given", $step_1->getKeyword());
+
     }
-    
+
+    /**
+     * @test
+     */
+    public function shouldSetProperDuskTestName() {
+
+        $file_to_convert = $this->getFixtureFeature('test_naming.feature');
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
+
+        \PHPUnit_Framework_Assert::assertEquals("TestNamingTest", $this->gd->getDuskTestName());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldContainTextFromFeatureConvertedIntoUnitTest() {
+
+        $file_to_convert = $this->getFixtureFeature('test_naming.feature');
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
+
+        \PHPUnit_Framework_Assert::assertNotNull($this->gd->getFeatureContent());
+        \PHPUnit_Framework_Assert::assertEquals($this->gd->getFeatureContent(), $file_to_convert);
+
+        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $this->gd->getParsedFeature());
+
+        \PHPUnit_Framework_Assert::assertNotEmpty($this->gd->getDuskClassAndMethods());
+        \PHPUnit_Framework_Assert::assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
+        \PHPUnit_Framework_Assert::assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
+
+        dd($this->gd->getDuskClassAndMethods());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldCreateFile() {
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldPutTheMethodsInTheFileAsNeeded() {
+
+    }
+
+
+    /**
+     * @test
+     */
+    public function shouldGetTaggedOnly() {
+
+    }
+
     private function setupFolderAndFile()
     {
         $path = $this->gd->getSourcePath();
