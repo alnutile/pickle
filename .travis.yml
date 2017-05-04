@@ -20,11 +20,11 @@ matrix:
       env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
 
 before_script:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+  - travis_retry composer install ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
 script:
-  - vendor/bin/phpcs --standard=psr2 src/
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - bin/phpcs --standard=psr2 src/
+  - bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
   - |
