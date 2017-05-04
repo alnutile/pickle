@@ -8,11 +8,11 @@ use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
 use GD\GherkinToDusk;
 use Illuminate\Filesystem\Filesystem;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class InitializeFileTest extends TestCase
+class InitializeFileTest extends PHPUnit_Framework_TestCase
 {
 
 
@@ -74,7 +74,6 @@ class InitializeFileTest extends TestCase
     public function shouldSetProperDuskTestName()
     {
 
-        $file_to_convert = $this->getFixtureFeature('test_naming.feature');
         $path = 'tests/features/test_naming.feature';
         $this->gd->setPathToFeature($path)
             ->initializeFeature();
