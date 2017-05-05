@@ -9,11 +9,13 @@ use Behat\Gherkin\Loader\GherkinFileLoader;
 use Behat\Gherkin\Loader\YamlFileLoader;
 use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
+use GD\Helpers\BuildOutContent;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 class GherkinToDusk extends BaseGherkinToDusk
 {
+    use BuildOutContent;
 
     protected $component = false;
 
@@ -132,14 +134,7 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     private function breakIntoMethods()
     {
-        //take the parsed content and build out the methods needed for the file
-        //1) the public method to test eg the Scenario
-        //   set the name right
-
         $this->iterateOverScenariosAndBuildUpClassMethods();
-
-        //2) and sub items it has eg the steps
-        //   makesure their names are correct
     }
 
     private function iterateOverScenariosAndBuildUpClassMethods()
@@ -148,13 +143,19 @@ class GherkinToDusk extends BaseGherkinToDusk
         foreach ($this->parsed_feature->getScenarios() as $scenario_index => $scenario) {
             $parent_method_name = ucfirst(camel_case($scenario->getTitle()));
 
+            $parent_method_name_camelized_and_prefix_test = sprintf('test%s', $parent_method_name);
+
             $this->dusk_class_and_methods[$scenario_index] = [
-                'parent' => sprintf('test%s', $parent_method_name)
+                'parent' => $parent_method_name_camelized_and_prefix_test,
+                'parent_content' => $this->getParentLevelContent($parent_method_name_camelized_and_prefix_test)
             ];
 
             foreach ($scenario->getSteps() as $step_index => $step) {
                 $method_name = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
-                $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index] = $method_name;
+                $step_method_name_camalized = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
+                $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index]['name'] = $method_name;
+                $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index] =
+                        $this->getStepLevelContent($step_method_name_camalized);
             }
         }
     }

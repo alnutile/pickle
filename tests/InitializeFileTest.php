@@ -8,11 +8,8 @@ use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
 use GD\GherkinToDusk;
 use Illuminate\Filesystem\Filesystem;
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
 
-class InitializeFileTest extends PHPUnit_Framework_TestCase
+class InitializeFileTest extends TestCase
 {
 
 
@@ -100,6 +97,7 @@ class InitializeFileTest extends PHPUnit_Framework_TestCase
         \PHPUnit_Framework_Assert::assertNotEmpty($this->gd->getDuskClassAndMethods());
         \PHPUnit_Framework_Assert::assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
         \PHPUnit_Framework_Assert::assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
+
     }
 
     /**
