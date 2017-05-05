@@ -3,7 +3,6 @@
 
 namespace GD\Tests;
 
-
 use GD\Helpers\BuildOutContent;
 
 class BuildOutContentTest extends TestCase
@@ -12,7 +11,8 @@ class BuildOutContentTest extends TestCase
 
     use BuildOutContent;
 
-    public function testShouldAddParentMethodInfoToArray() {
+    public function testShouldAddParentMethodInfoToArray()
+    {
 
         $name = 'testFoo';
 
@@ -28,10 +28,10 @@ class BuildOutContentTest extends TestCase
         //dd($what_it_should_be, $results);
 
         //$this->assertEquals($what_it_should_be["method"], $results["method"]);
-
     }
 
-    public function testShouldAddStepMethodInfoToArray() {
+    public function testShouldAddStepMethodInfoToArray()
+    {
 
         $name = 'foo';
 
@@ -54,6 +54,5 @@ class BuildOutContentTest extends TestCase
         $this->assertEquals("public function foo() {", $results['method'][0]);
         $this->assertEquals("\$this->markTestIncomplete('Time to code');", $results['method'][1]);
         $this->assertEquals("}", $results['method'][2]);
-
     }
 }

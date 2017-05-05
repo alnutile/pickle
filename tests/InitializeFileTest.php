@@ -97,7 +97,6 @@ class InitializeFileTest extends TestCase
         \PHPUnit_Framework_Assert::assertNotEmpty($this->gd->getDuskClassAndMethods());
         \PHPUnit_Framework_Assert::assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
         \PHPUnit_Framework_Assert::assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
-
     }
 
     /**
