@@ -8,8 +8,10 @@ trait BuildOutContent
     public function getParentLevelContent($parent_method_name)
     {
         return [
-            "public function {$parent_method_name}() {",
-            "}"
+            "method" => [
+                "public function {$parent_method_name}() {",
+                "}"
+            ]
         ];
     }
 

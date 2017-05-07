@@ -12,26 +12,9 @@ use Illuminate\Filesystem\Filesystem;
 class InitializeFileTest extends TestCase
 {
 
-
-    /**
-     * @var Filesystem
-     */
-    protected $file;
-
-    /**
-     * @var GherkinToDusk
-     */
-    protected $gd;
-
     public function setUp()
     {
-        $this->file = new Filesystem();
-        $il8n = __DIR__ . '/../src/i18n.yml';
-        $keywords = new CucumberKeywords($il8n);
-        $keywords->setLanguage('en');
-        $lexer = new Lexer($keywords);
-        $parser = new Parser($lexer);
-        $this->gd = new \GD\GherkinToDusk($this->file, $parser);
+        $this->instantiateGD();
 
         $this->setupFolderAndFile();
     }
@@ -102,8 +85,33 @@ class InitializeFileTest extends TestCase
     /**
      * @test
      */
+    public function shouldHaveArrayWithTextForParentAndChild()
+    {
+        $file_to_convert = $this->getFixtureFeature('test_naming.feature');
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
+
+        $this->assertCount(2, $this->gd->getDuskClassAndMethods());
+
+        $this->assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
+        $this->assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
+        $this->assertEquals('public function testEditProfile() {',
+            $this->gd->getDuskClassAndMethods()[0]['parent_content']['method'][0]);
+        $this->assertArrayHasKey('parent_content', $this->gd->getDuskClassAndMethods()[0]);
+        $this->assertArrayHasKey('steps', $this->gd->getDuskClassAndMethods()[0]);
+        $this->assertArrayHasKey('method', $this->gd->getDuskClassAndMethods()[0]['steps'][0]);
+        $this->assertEquals('public function givenIHaveAProfileCreated() {', $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method'][0]);
+        $this->assertEquals('$this->markTestIncomplete(\'Time to code\');', $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method'][1]);
+
+    }
+
+    /**
+     * @test
+     */
     public function shouldCreateFile()
     {
+
     }
 
     /**
@@ -119,38 +127,19 @@ class InitializeFileTest extends TestCase
      */
     public function shouldGetTaggedOnly()
     {
-    }
 
-    private function setupFolderAndFile()
-    {
-        $path = $this->gd->getSourcePath();
-
-        /**
-         * This can be come a path relative issue
-         */
-        if (!$this->file->exists($path)) {
-            $this->file->makeDirectory($path, 0777, true);
-            $this->file->copy(
-                $this->gd->getSourcePath() . '../fixtures/features/test_naming.feature',
-                $this->gd->getSourcePath() . 'test_naming.feature'
-            );
-        }
     }
 
     protected function tearDown()
     {
-        $path = $this->gd->getSourcePath();
 
-        /**
-         * This can be come a path relative issue
-         */
-        if ($this->file->exists($path)) {
-            $this->file->deleteDirectory($path);
-        }
+        $this->cleanUpFile();
     }
 
     private function getFixtureFeature($string)
     {
         return $this->file->get(__DIR__ . sprintf('/features/%s', $string));
     }
+
+
 }

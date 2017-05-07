@@ -150,13 +150,21 @@ class GherkinToDusk extends BaseGherkinToDusk
                 'parent_content' => $this->getParentLevelContent($parent_method_name_camelized_and_prefix_test)
             ];
 
-            foreach ($scenario->getSteps() as $step_index => $step) {
-                $method_name = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
-                $step_method_name_camalized = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
-                $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index]['name'] = $method_name;
-                $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index] =
-                        $this->getStepLevelContent($step_method_name_camalized);
-            }
+            $this->buildOutSteps($scenario, $scenario_index);
+        }
+    }
+
+    /**
+     * @param $scenario \Behat\Gherkin\Node\ScenarioNode
+     */
+    protected function buildOutSteps($scenario, $scenario_index) {
+        foreach ($scenario->getSteps() as $step_index => $step) {
+            $method_name = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
+            $step_method_name_camalized = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
+            $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index]['name'] =
+                $method_name;
+            $this->dusk_class_and_methods[$scenario_index]['steps'][$step_index] =
+                $this->getStepLevelContent($step_method_name_camalized);
         }
     }
 

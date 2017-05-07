@@ -25,9 +25,7 @@ class BuildOutContentTest extends TestCase
             ]
         ];
 
-        //dd($what_it_should_be, $results);
-
-        //$this->assertEquals($what_it_should_be["method"], $results["method"]);
+        $this->assertEquals($what_it_should_be["method"], $results["method"]);
     }
 
     public function testShouldAddStepMethodInfoToArray()
@@ -47,9 +45,7 @@ class BuildOutContentTest extends TestCase
             'reference' => '$this->foo'
         ];
 
-        //dd($results);
         $this->assertEquals($what_it_should_be, $results);
-
         $this->assertArrayHasKey("method", $results);
         $this->assertEquals("public function foo() {", $results['method'][0]);
         $this->assertEquals("\$this->markTestIncomplete('Time to code');", $results['method'][1]);
