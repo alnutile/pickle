@@ -15,18 +15,16 @@ class WriteFileTest extends TestCase
         $this->setupFolderAndFile();
     }
 
-    public function testShouldMakeFileWithCorrectName() {
+    public function testShouldMakeFileWithCorrectName()
+    {
         $path = 'tests/features/test_naming.feature';
         $this->gd->setPathToFeature($path)
             ->initializeFeature();
 
         //dd($this->gd->getDuskClassAndMethods());
-
     }
 
-    public function testFileShouldMatchExpected() {
-
+    public function testFileShouldMatchExpected()
+    {
     }
-
-
 }

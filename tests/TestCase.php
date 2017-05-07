@@ -22,7 +22,8 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected $gd;
 
-    public function instantiateGD() {
+    public function instantiateGD()
+    {
         $this->file = new Filesystem();
         $il8n = __DIR__ . '/../src/i18n.yml';
         $keywords = new CucumberKeywords($il8n);
@@ -60,5 +61,4 @@ class TestCase extends PHPUnit_Framework_TestCase
             $this->file->deleteDirectory($path);
         }
     }
-
 }

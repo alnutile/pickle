@@ -157,7 +157,8 @@ class GherkinToDusk extends BaseGherkinToDusk
     /**
      * @param $scenario \Behat\Gherkin\Node\ScenarioNode
      */
-    protected function buildOutSteps($scenario, $scenario_index) {
+    protected function buildOutSteps($scenario, $scenario_index)
+    {
         foreach ($scenario->getSteps() as $step_index => $step) {
             $method_name = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));
             $step_method_name_camalized = camel_case(sprintf("%s %s", $step->getKeyword(), $step->getText()));

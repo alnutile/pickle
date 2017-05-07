@@ -96,14 +96,15 @@ class InitializeFileTest extends TestCase
 
         $this->assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
         $this->assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
-        $this->assertEquals('public function testEditProfile() {',
-            $this->gd->getDuskClassAndMethods()[0]['parent_content']['method'][0]);
+        $this->assertEquals(
+            'public function testEditProfile() {',
+            $this->gd->getDuskClassAndMethods()[0]['parent_content']['method'][0]
+        );
         $this->assertArrayHasKey('parent_content', $this->gd->getDuskClassAndMethods()[0]);
         $this->assertArrayHasKey('steps', $this->gd->getDuskClassAndMethods()[0]);
         $this->assertArrayHasKey('method', $this->gd->getDuskClassAndMethods()[0]['steps'][0]);
         $this->assertEquals('public function givenIHaveAProfileCreated() {', $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method'][0]);
         $this->assertEquals('$this->markTestIncomplete(\'Time to code\');', $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method'][1]);
-
     }
 
     /**
@@ -111,7 +112,6 @@ class InitializeFileTest extends TestCase
      */
     public function shouldCreateFile()
     {
-
     }
 
     /**
@@ -127,7 +127,6 @@ class InitializeFileTest extends TestCase
      */
     public function shouldGetTaggedOnly()
     {
-
     }
 
     protected function tearDown()
@@ -140,6 +139,4 @@ class InitializeFileTest extends TestCase
     {
         return $this->file->get(__DIR__ . sprintf('/features/%s', $string));
     }
-
-
 }
