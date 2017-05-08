@@ -132,6 +132,9 @@ class BaseGherkinToDusk
      */
     public function getDestinationFolderRoot()
     {
+        if(!$this->destination_folder_root) {
+            $this->setDestinationFolderRoot();
+        }
         return $this->destination_folder_root;
     }
 
@@ -141,7 +144,7 @@ class BaseGherkinToDusk
     public function setDestinationFolderRoot($destination_folder_root = null)
     {
         if (!$destination_folder_root) {
-            $destination_folder_root = getcwd() . '/tests/';
+            $destination_folder_root = getcwd() . '/tests/Unit';
         }
 
         $this->destination_folder_root = $destination_folder_root;

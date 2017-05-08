@@ -48,17 +48,29 @@ class TestCase extends PHPUnit_Framework_TestCase
                 $this->gd->getSourcePath() . 'test_naming.feature'
             );
         }
+
+        $path = $this->gd->getDestinationFolderRoot();
+
+        /**
+         * This can be come a path relative issue
+         */
+        if (!$this->file->exists($path)) {
+            $this->file->makeDirectory($path, 0777, true);
+        }
     }
 
     protected function cleanUpFile()
     {
         $path = $this->gd->getSourcePath();
 
-        /**
-         * This can be come a path relative issue
-         */
-        if ($this->file->exists($path)) {
+        $paths[] = $path;
+
+        $path = $this->gd->getDestinationFolderRoot();
+        $paths[] = $path;
+
+        foreach($paths as $path) {
             $this->file->deleteDirectory($path);
         }
+
     }
 }
