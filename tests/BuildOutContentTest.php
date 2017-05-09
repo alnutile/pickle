@@ -19,13 +19,10 @@ class BuildOutContentTest extends TestCase
         $results = $this->getParentLevelContent($name);
 
         $what_it_should_be = [
-            "method" => [
-                'public function testFoo() {',
-                '}'
-            ]
+            "method_name" => $name
         ];
 
-        $this->assertEquals($what_it_should_be["method"], $results["method"]);
+        $this->assertEquals($what_it_should_be["method_name"], $results["method_name"]);
     }
 
     public function testShouldAddStepMethodInfoToArray()
@@ -36,19 +33,12 @@ class BuildOutContentTest extends TestCase
         $results = $this->getStepLevelContent($name);
 
         $what_it_should_be = [
-            'method' =>
-                [
-                    "public function foo() {",
-                    "\$this->markTestIncomplete('Time to code');",
-                    "}"
-                ],
-            'reference' => '$this->foo'
+            'method_name' => "foo",
+            'reference' => '$this->foo()',
         ];
 
         $this->assertEquals($what_it_should_be, $results);
-        $this->assertArrayHasKey("method", $results);
-        $this->assertEquals("public function foo() {", $results['method'][0]);
-        $this->assertEquals("\$this->markTestIncomplete('Time to code');", $results['method'][1]);
-        $this->assertEquals("}", $results['method'][2]);
+        $this->assertArrayHasKey("method_name", $results);
+        $this->assertEquals("foo", $what_it_should_be["method_name"]);
     }
 }

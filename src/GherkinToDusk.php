@@ -10,12 +10,13 @@ use Behat\Gherkin\Loader\YamlFileLoader;
 use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
 use GD\Helpers\BuildOutContent;
+use GD\Helpers\WritePHPUnitFile;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 class GherkinToDusk extends BaseGherkinToDusk
 {
-    use BuildOutContent;
+    use BuildOutContent, WritePHPUnitFile;
 
     protected $component = false;
 
@@ -56,6 +57,12 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected function featureToUnit()
     {
+
+        $this->writeUnitTest(
+            $this->getDestinationFolderRoot(),
+            $this->getDuskTestName(),
+            $this->getDuskClassAndMethods()
+        );
     }
 
     /**

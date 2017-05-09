@@ -12,6 +12,7 @@
     <testsuites>
         <testsuite name="alnutile Test Suite">
             <directory>tests</directory>
+            <exclude>./tests/Unit</exclude>
         </testsuite>
     </testsuites>
     <filter>

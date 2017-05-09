@@ -68,9 +68,8 @@ class TestCase extends PHPUnit_Framework_TestCase
         $path = $this->gd->getDestinationFolderRoot();
         $paths[] = $path;
 
-        foreach($paths as $path) {
+        foreach ($paths as $path) {
             $this->file->deleteDirectory($path);
         }
-
     }
 }

@@ -72,6 +72,10 @@ class BaseGherkinToDusk
      */
     public function setFilesystem($filesystem = null)
     {
+        if (!$filesystem) {
+            $filesystem = new Filesystem();
+        }
+
         $this->filesystem = $filesystem;
         return $this;
     }
@@ -132,7 +136,7 @@ class BaseGherkinToDusk
      */
     public function getDestinationFolderRoot()
     {
-        if(!$this->destination_folder_root) {
+        if (!$this->destination_folder_root) {
             $this->setDestinationFolderRoot();
         }
         return $this->destination_folder_root;

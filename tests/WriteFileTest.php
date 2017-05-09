@@ -23,19 +23,91 @@ class WriteFileTest extends TestCase
 
     public function testShouldMakeFileWithCorrectName()
     {
+        \PHPUnit_Framework_Assert::assertFileNotExists($this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php');
+
         $path = 'tests/features/test_naming.feature';
         $this->gd->setPathToFeature($path)
             ->initializeFeature();
 
 
-        \PHPUnit_Framework_Assert::assertEquals(getcwd() . '/tests/',
-            $this->gd->getDestinationFolderRoot());
+        \PHPUnit_Framework_Assert::assertEquals(
+            getcwd() . '/tests/Unit',
+            $this->gd->getDestinationFolderRoot()
+        );
 
-        \PHPUnit_Framework_Assert::assertFileExists($this->gd->getDestinationFolderRoot() . '/tests/TestNamingTest.php');
-        //dd($this->gd->getDuskClassAndMethods());
+        \PHPUnit_Framework_Assert::assertFileExists(
+            $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php'
+        );
     }
 
     public function testFileShouldMatchExpected()
     {
+        \PHPUnit_Framework_Assert::assertFileNotExists($this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php');
+
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
+
+        $contains = <<<HEARDOC
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class {$this->gd->getDuskTestName()} extends TestCase
+{
+HEARDOC;
+
+        \PHPUnit_Framework_Assert::assertContains($contains, $this->gd->getDuskClassAndMethodsString());
+
+
+        \PHPUnit_Framework_Assert::assertContains("function testEditProfile()", $this->gd->getDuskClassAndMethodsString());
+
+        \PHPUnit_Framework_Assert::assertContains("protected function givenIHaveAProfileCreated() {", $this->gd->getDuskClassAndMethodsString());
+        \PHPUnit_Framework_Assert::assertContains("\$this->givenIHaveAProfileCreated", $this->gd->getDuskClassAndMethodsString());
+
+        /**
+         * Then do the file
+         */
+        $fixture = file_get_contents(__DIR__ . '/fixtures/TestNamingTest.phpTEMPLATE');
+        $content = file_get_contents($this->gd->getDestinationFolderRoot() . '/TestNamingTest.php');
+        //$this->file->put(__DIR__ . '/fixtures/TestNamingTest.phpTEMPLATE', $content);
+
+        \PHPUnit_Framework_Assert::assertEquals($fixture, $content);
+    }
+
+    public function testPreventDuplicateMethods()
+    {
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
+
+        $content = file_get_contents($this->gd->getDestinationFolderRoot() . '/TestNamingTest.php');
+
+        $find = substr_count($content, "protected function andTheLastName()");
+
+        \PHPUnit_Framework_Assert::assertEquals(1, $find);
+    }
+
+    /**
+     * @expectedException
+     */
+    public function testPreventOverwrite()
+    {
+        $path = $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php';
+        if (!$this->file->exists($path)) {
+            if (!$this->file->exists($this->gd->getDestinationFolderRoot())) {
+                $this->file->makeDirectory($this->gd->getDestinationFolderRoot(), 0777, true);
+            }
+
+            $this->file->put($path, "Foo");
+        }
+
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->initializeFeature();
     }
 }

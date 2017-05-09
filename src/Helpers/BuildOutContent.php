@@ -8,22 +8,15 @@ trait BuildOutContent
     public function getParentLevelContent($parent_method_name)
     {
         return [
-            "method" => [
-                "public function {$parent_method_name}() {",
-                "}"
-            ]
+            "method_name" => $parent_method_name
         ];
     }
 
     public function getStepLevelContent($step_method_name)
     {
         return [
-            'method' => [
-                "public function {$step_method_name}() {",
-                "\$this->markTestIncomplete('Time to code');",
-                "}"
-            ],
-            "reference" => sprintf("\$this->%s", $step_method_name)
+            "method_name" => $step_method_name,
+            "reference" => sprintf("\$this->%s", $step_method_name) . "()"
         ];
     }
 }
