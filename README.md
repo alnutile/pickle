@@ -12,13 +12,10 @@
 Gherkin to Dusk
 
 This will attempt to make a easy way to work with Dusk from a Gherkin formatted file.
-In someways Behat but built around Dusk and how it goes about making the underlaying
-framework and testing work seemlessly.
+In someways Behat but built around Dusk and how it goes about making the underlying
+framework and testing work seamlessly.
 
-For example you can make a feature in `tests/features` folder name `tests/features/profile.feature`
-
-
-In that file you might have
+For example I make a file `tests/feature/profile.feature`
 
 ```
 Feature: Test Profile Page
@@ -26,54 +23,83 @@ Feature: Test Profile Page
   As a user of the system
   So I can manage my profile
 
-@happy_path
-Scenario: Edit Profile
-  Given I have a profile created
-  And I am in edit mode
-  Then I can change the first name
-  And the last name
-  And and save my settings
-  Then when I view my profile it will have those new settings
-
-Scenario: View Profile
-  Given I have a profile created
-  And I am in view mode
-  Then I can see the first name
-  And the last name
-  And and go into edit mode
-  Then when I will be at the edit form
+  Scenario: Edit Profile
+    Given I have a profile created
+    And I am in edit mode
+    Then I can change the first name
+    And the last name
+    And and save my settings
+    Then when I view my profile it will have those new settings
 ```
 
+Now as the developer this Scenario is written before any code is written.
 
-Then by running `pickle initialize --unit tests/features/profile.feature` you will have a new Dusk file
+So at this point I can type
 
-`tests/Unit/ProfileTest.php`
+```
+pickle initialize tests/features/profile.feature  --domain
+```
 
-It will look like this
+or 
+
+```
+pickle initialize tests/features/profile.feature  --ui
+```
+
+In this case let's focus on domain.
+
+Now it will make a test for me in `tests/Unit/ProfileTest`
+
+and I can start working on that file which would look something like this
 
 ```
 <?php
 
-namespace Tests\Unit;
+class ProfileTest extends TestCase {
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
-class ProfileTest extends TestCase
-{
     /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
-    {
-        $this->assertTrue(true);
+      * @group editProfile
+      */
+    public function testGivenIHaveAProfileCreated() {
+        $this->andIamInEditMode();
     }
+
+   protected function andIamInEditMode() {
+        $this->markTestIncomplete('Time to code');
+    }
+
+    //and all the rest
+
 }
 
 ```
+
+
+
+```
+pickle run --domain tests/features/profile.feature 
+```
+
+Or now using just go back to using PHPUnit
+
+```
+phpunit tests/Unit/ProfileTest.php
+```
+
+Or Dusk via Pickle
+
+```
+pickle run --ui tests/features/profile.feature 
+```
+
+Or via Dusk
+
+```
+php artisan dusk tests/Browser/ProfileTest.php
+```
+
+
+
 
 ## Structure
 
