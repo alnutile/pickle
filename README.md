@@ -119,15 +119,12 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require alnutile/dg
+$ composer require anutile/pickle
 ```
 
 ## Usage
 
-``` php
-$skeleton = new alnutile\dg();
-echo $skeleton->echoPhrase('Hello, League!');
-```
+Comming soon..
 
 ## Change log
 
@@ -156,17 +153,17 @@ If you discover any security related issues, please email me@alfrednutile.info i
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/alnutile/dg.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/alnutile/pickle.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/alnutile/dg/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/alnutile/dg.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/alnutile/dg.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/alnutile/dg.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/alnutile/pickle/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/alnutile/pickle.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/alnutile/pickle.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/alnutile/pickle.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/alnutile/dg
-[link-travis]: https://travis-ci.org/alnutile/dg
-[link-scrutinizer]: https://scrutinizer-ci.com/g/alnutile/dg/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/alnutile/dg
-[link-downloads]: https://packagist.org/packages/alnutile/dg
+[link-packagist]: https://packagist.org/packages/alnutile/pickle
+[link-travis]: https://travis-ci.org/alnutile/pickle
+[link-scrutinizer]: https://scrutinizer-ci.com/g/alnutile/pickle/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/alnutile/pickle
+[link-downloads]: https://packagist.org/packages/alnutile/pickle
 [link-author]: https://github.com/alnutile
 [link-contributors]: ../../contributors

@@ -31,7 +31,8 @@ trait WritePHPUnitFile
         if (!$this->getFilesystem()->exists($this->write_destination_folder_path)) {
             $this->getFilesystem()->makeDirectory($this->write_destination_folder_path, 0777, true);
         } else {
-            if ($this->getFilesystem()->exists($this->write_destination_folder_path . $this->getDuskTestName() . '.php')) {
+            if ($this->getFilesystem()->exists($this->write_destination_folder_path .
+                $this->getDuskTestName() . '.php')) {
                 throw new TestFileExists(sprintf("The file %s already exists", $this->getDuskTestName() . '.php'));
             }
         }
@@ -75,12 +76,15 @@ trait WritePHPUnitFile
             $this->addNewStepToTest($step, $step_template);
         }
 
-        $this->dusk_class_and_methods_string = str_replace("[STEPS_AREA]", $references, $this->dusk_class_and_methods_string);
+        $this->dusk_class_and_methods_string =
+            str_replace("[STEPS_AREA]", $references, $this->dusk_class_and_methods_string);
     }
 
     protected function addNewStepToTest($step, $step_template)
     {
-        if (substr_count($this->dusk_class_and_methods_string, sprintf("protected function %s()", $step['method_name'])) < 1) {
+        $method = sprintf("protected function %s()", $step['method_name']);
+        $found = substr_count($this->dusk_class_and_methods_string, $method);
+        if ($found < 1) {
             $content = str_replace("[STEP]", $step['method_name'], $step_template);
             $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . $content;
         }
