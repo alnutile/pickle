@@ -148,7 +148,7 @@ class BaseGherkinToDusk
     public function setDestinationFolderRoot($destination_folder_root = null)
     {
         if (!$destination_folder_root) {
-            $destination_folder_root = getcwd() . '/tests/Unit';
+            $destination_folder_root = getcwd() . sprintf('/tests/%s', $this->getContextFolder());
         }
 
         $this->destination_folder_root = $destination_folder_root;
@@ -188,5 +188,18 @@ class BaseGherkinToDusk
     {
         $this->path_to_feature = $path_to_feature;
         return $this;
+    }
+
+    private function getContextFolder()
+    {
+        switch ($this->context) {
+            case "domain":
+                return "Unit";
+            case "ui":
+            case "browser":
+                return "Browser";
+            default:
+                return "Unit";
+        }
     }
 }

@@ -11,7 +11,7 @@
 
 Gherkin to Dusk
 
-This will attempt to make a easy way to work with Dusk from a Gherkin formatted file.
+This will attempt to make a easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
 In someways Behat but built around Dusk and how it goes about making the underlying
 framework and testing work seamlessly.
 

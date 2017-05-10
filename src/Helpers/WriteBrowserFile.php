@@ -2,7 +2,7 @@
 
 namespace GD\Helpers;
 
-class WritePHPUnitFile extends WriteFileBase
+class WriteBrowserFile extends WriteFileBase
 {
 
     public function writeTest($path, $name, $dusk_class_and_methods)
@@ -21,7 +21,7 @@ class WritePHPUnitFile extends WriteFileBase
 
     protected function addParentContent($parent_function)
     {
-        $parent_base = __DIR__ . '/../../stubs/parent.txt';
+        $parent_base = __DIR__ . '/../../stubs/browser_parent.txt';
         $this->base = $this->getFilesystem()->get($parent_base);
 
         parent::addParentContent($parent_function);
@@ -29,7 +29,7 @@ class WritePHPUnitFile extends WriteFileBase
 
     protected function addSteps(array $steps)
     {
-        $path = __DIR__ . '/../../stubs/step.txt';
+        $path = __DIR__ . '/../../stubs/browser_step.txt';
         $this->step_template = $this->getFilesystem()->get($path);
 
         parent::addSteps($steps);
@@ -37,7 +37,7 @@ class WritePHPUnitFile extends WriteFileBase
 
     protected function getAndSetHeaderArea()
     {
-        $path = __DIR__ . '/../../stubs/header.txt';
+        $path = __DIR__ . '/../../stubs/browser_header.txt';
         $this->content = $this->getFilesystem()->get($path);
 
         parent::getAndSetHeaderArea();
@@ -45,7 +45,7 @@ class WritePHPUnitFile extends WriteFileBase
 
     protected function getAndSetFooterArea()
     {
-        $path = __DIR__ . '/../../stubs/footer.txt';
+        $path = __DIR__ . '/../../stubs/browser_footer.txt';
         $content = $this->getFilesystem()->get($path);
 
         $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . $content;

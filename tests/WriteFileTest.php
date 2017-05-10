@@ -6,7 +6,6 @@ namespace GD\Tests;
 class WriteFileTest extends TestCase
 {
 
-
     public function setUp()
     {
         parent::setUp();
@@ -23,7 +22,8 @@ class WriteFileTest extends TestCase
 
     public function testShouldMakeFileWithCorrectName()
     {
-        \PHPUnit_Framework_Assert::assertFileNotExists($this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php');
+        $path = $this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php';
+        \PHPUnit_Framework_Assert::assertFileNotExists($path);
 
         $path = 'tests/features/test_naming.feature';
         $this->gd->setPathToFeature($path)
@@ -42,7 +42,8 @@ class WriteFileTest extends TestCase
 
     public function testFileShouldMatchExpected()
     {
-        \PHPUnit_Framework_Assert::assertFileNotExists($this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php');
+        $path = $this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php';
+        \PHPUnit_Framework_Assert::assertFileNotExists($path);
 
         $path = 'tests/features/test_naming.feature';
         $this->gd->setPathToFeature($path)
@@ -61,13 +62,13 @@ class {$this->gd->getDuskTestName()} extends TestCase
 {
 HEARDOC;
 
-        \PHPUnit_Framework_Assert::assertContains($contains, $this->gd->getDuskClassAndMethodsString());
+        $content = $this->gd->getWriteUnitTest()->getDuskClassAndMethodsString();
+        \PHPUnit_Framework_Assert::assertContains($contains, $content);
 
+        \PHPUnit_Framework_Assert::assertContains("function testEditProfile()", $content);
 
-        \PHPUnit_Framework_Assert::assertContains("function testEditProfile()", $this->gd->getDuskClassAndMethodsString());
-
-        \PHPUnit_Framework_Assert::assertContains("protected function givenIHaveAProfileCreated() {", $this->gd->getDuskClassAndMethodsString());
-        \PHPUnit_Framework_Assert::assertContains("\$this->givenIHaveAProfileCreated", $this->gd->getDuskClassAndMethodsString());
+        \PHPUnit_Framework_Assert::assertContains("protected function givenIHaveAProfileCreated() {", $content);
+        \PHPUnit_Framework_Assert::assertContains("\$this->givenIHaveAProfileCreated", $content);
 
         /**
          * Then do the file

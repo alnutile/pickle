@@ -29,23 +29,23 @@ class InitializeFileTest extends TestCase
 
         $feature = $this->gd->getParser()->parse($file_to_convert);
 
-        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $feature);
+        $this->assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $feature);
 
-        \PHPUnit_Framework_Assert::assertEquals(2, count($feature->getScenarios()));
+        $this->assertEquals(2, count($feature->getScenarios()));
 
         $scenario_1 = $feature->getScenarios()[0];
 
-        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\ScenarioNode::class, $scenario_1);
+        $this->assertInstanceOf(\Behat\Gherkin\Node\ScenarioNode::class, $scenario_1);
 
-        \PHPUnit_Framework_Assert::assertEquals(1, count($scenario_1->getTags()));
+        $this->assertEquals(1, count($scenario_1->getTags()));
 
         $step_1 = $scenario_1->getSteps()[0];
 
-        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\StepNode::class, $step_1);
+        $this->assertInstanceOf(\Behat\Gherkin\Node\StepNode::class, $step_1);
 
-        \PHPUnit_Framework_Assert::assertContains("I have a profile created", $step_1->getText());
+        $this->assertContains("I have a profile created", $step_1->getText());
 
-        \PHPUnit_Framework_Assert::assertEquals("Given", $step_1->getKeyword());
+        $this->assertEquals("Given", $step_1->getKeyword());
     }
 
     /**
@@ -58,7 +58,7 @@ class InitializeFileTest extends TestCase
         $this->gd->setPathToFeature($path)
             ->initializeFeature();
 
-        \PHPUnit_Framework_Assert::assertEquals("TestNamingTest", $this->gd->getDuskTestName());
+        $this->assertEquals("TestNamingTest", $this->gd->getDuskTestName());
     }
 
     /**
@@ -72,14 +72,14 @@ class InitializeFileTest extends TestCase
         $this->gd->setPathToFeature($path)
             ->initializeFeature();
 
-        \PHPUnit_Framework_Assert::assertNotNull($this->gd->getFeatureContent());
-        \PHPUnit_Framework_Assert::assertEquals($this->gd->getFeatureContent(), $file_to_convert);
+        $this->assertNotNull($this->gd->getFeatureContent());
+        $this->assertEquals($this->gd->getFeatureContent(), $file_to_convert);
 
-        \PHPUnit_Framework_Assert::assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $this->gd->getParsedFeature());
+        $this->assertInstanceOf(\Behat\Gherkin\Node\FeatureNode::class, $this->gd->getParsedFeature());
 
-        \PHPUnit_Framework_Assert::assertNotEmpty($this->gd->getDuskClassAndMethods());
-        \PHPUnit_Framework_Assert::assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
-        \PHPUnit_Framework_Assert::assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
+        $this->assertNotEmpty($this->gd->getDuskClassAndMethods());
+        $this->assertArrayHasKey('parent', $this->gd->getDuskClassAndMethods()[0]);
+        $this->assertEquals('testEditProfile', $this->gd->getDuskClassAndMethods()[0]['parent']);
     }
 
     /**
@@ -103,7 +103,8 @@ class InitializeFileTest extends TestCase
         $this->assertArrayHasKey('parent_content', $this->gd->getDuskClassAndMethods()[0]);
         $this->assertArrayHasKey('steps', $this->gd->getDuskClassAndMethods()[0]);
         $this->assertArrayHasKey('method_name', $this->gd->getDuskClassAndMethods()[0]['steps'][0]);
-        $this->assertEquals('givenIHaveAProfileCreated', $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method_name']);
+        $name = $this->gd->getDuskClassAndMethods()[0]['steps'][0]['method_name'];
+        $this->assertEquals('givenIHaveAProfileCreated', $name);
     }
 
     /**

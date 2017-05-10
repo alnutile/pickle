@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class GherkinToDusk extends BaseGherkinToDusk
 {
-    use BuildOutContent, WritePHPUnitFile;
+    use BuildOutContent;
 
     protected $component = false;
 
@@ -40,6 +40,11 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected $dusk_test_name;
 
+    /**
+     * @var WritePHPUnitFile
+     */
+    protected $write_unit_test;
+
     public function initializeFeature()
     {
         $this->loadFileContent();
@@ -50,15 +55,27 @@ class GherkinToDusk extends BaseGherkinToDusk
 
         $this->breakIntoMethods();
 
-        if ($this->context == 'domain') {
-            $this->featureToUnit();
+        switch ($this->context) {
+            case 'domain':
+                $this->featureToUnit();
+                break;
+            case 'browser':
+                $this->featureToBrowser();
+                break;
+            default:
+                //more coming soon
+                break;
         }
+    }
+
+    protected function featureToBrowser()
+    {
     }
 
     protected function featureToUnit()
     {
 
-        $this->writeUnitTest(
+        $this->getWriteUnitTest()->writeTest(
             $this->getDestinationFolderRoot(),
             $this->getDuskTestName(),
             $this->getDuskClassAndMethods()
@@ -219,5 +236,29 @@ class GherkinToDusk extends BaseGherkinToDusk
     public function setDuskTestName($dusk_test_name)
     {
         $this->dusk_test_name = $dusk_test_name;
+    }
+
+    public function getWriteUnitTest()
+    {
+
+        if (!$this->write_unit_test) {
+            $this->setWriteUnitTest();
+        }
+
+        return $this->write_unit_test;
+    }
+
+    /**
+     * @param WritePHPUnitFile $write_unit_test
+     * @return GherkinToDusk
+     */
+    public function setWriteUnitTest($write_unit_test = null)
+    {
+        if (!$write_unit_test) {
+            $write_unit_test = new WritePHPUnitFile();
+        }
+
+        $this->write_unit_test = $write_unit_test;
+        return $this;
     }
 }
