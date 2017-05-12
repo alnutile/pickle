@@ -196,7 +196,7 @@ I will take that one asap
 Right now the test show it working now I need to add it to the global command
 
 
-### Step 2) Append Snippets (in progress)
+### Step 2) Append Snippets (NEXT)
 
 The ability to add more steps and scenarios to existing Unit and Browser tests
 
