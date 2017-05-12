@@ -52,13 +52,13 @@ Now as the developer this Scenario is written before any code is written.
 So at this point I can type
 
 ```
-pickle initialize tests/features/profile.feature  --domain
+vendor/bin/pickle initialize tests/features/profile.feature  --domain
 ```
 
 or 
 
 ```
-pickle initialize tests/features/profile.feature  --ui
+vendor/bin/pickle initialize tests/features/profile.feature  --ui
 ```
 
 In this case let's focus on domain.
@@ -92,7 +92,7 @@ class ProfileTest extends TestCase {
 
 
 ```
-pickle run --domain tests/features/profile.feature 
+vendor/bin/pickle run --domain tests/features/profile.feature 
 ```
 
 Or now using just go back to using PHPUnit
@@ -104,7 +104,7 @@ phpunit tests/Unit/ProfileTest.php
 Or Dusk via Pickle
 
 ```
-pickle run --ui tests/features/profile.feature 
+vendor/bin/pickle run --ui tests/features/profile.feature 
 ```
 
 Or via Dusk
@@ -173,18 +173,38 @@ Setting the Browser as global set we can work one step at a time
 <a name="roadmap"></a>
 ## RoadMap
 
-Step 1) Initialize (DONE)
+Step 1) Initialize (PENDING)
 
 The ability to use a Gherkin file to create a Unit or Browser test
+
+### Todo
+
+Move the work into `pickle` 
+
+Right now the test show it working now I need to add it to the global command
 
 
 Step 2) Append Snippets (in progress)
 
 The ability to add more steps and scenarios to existing Unit and Browser tests
 
+### Todo
+
+Everything! 
+
 Step 3) Run from Gherkin
 
 Running from the Gherkin test either the domain or ui test with nice Gherkin based output
+
+### Todo
+
+Everything! 
+
+Step 4) Finalize Docs around this global command
+
+  * Intro Video explaining what and why
+  * Good Docs
+
 
 <a name="install"></a>
 ## Install
