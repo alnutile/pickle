@@ -52,6 +52,4 @@ class WriteBrowserFile extends WriteFileBase
 
         parent::addSteps($steps);
     }
-
-
 }

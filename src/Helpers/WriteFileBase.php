@@ -90,8 +90,9 @@ abstract class WriteFileBase
             str_replace("[STEPS_AREA]", $references, $this->dusk_class_and_methods_string);
     }
 
-    protected function notLastLine(array $steps, $index) {
-        if(($index + 1) < count($steps)) {
+    protected function notLastLine(array $steps, $index)
+    {
+        if (($index + 1) < count($steps)) {
             return ";\n        ";
         }
 
