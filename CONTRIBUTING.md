@@ -4,6 +4,8 @@ Contributions are **welcome** and will be fully **credited**.
 
 We accept contributions via Pull Requests on [Github](https://github.com/alnutile/dg).
 
+Just let me know what you are are working on by making an Issue and 
+note the item on the RoadMap you are taking on
 
 ## Pull Requests
 
