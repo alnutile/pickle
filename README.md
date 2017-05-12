@@ -183,34 +183,50 @@ Setting the Browser as global set we can work one step at a time
 <a name="roadmap"></a>
 ## RoadMap
 
-Step 1) Initialize (PENDING)
+### Step 1) Initialize (IN PROGRESS)
 
 The ability to use a Gherkin file to create a Unit or Browser test
 
-### Todo
+#### Todo
 
-Move the work into `pickle` 
+Move the work into `pickle` cli file see at root of app. Simple stuff since it is working in the test
+
+I will take that one asap
 
 Right now the test show it working now I need to add it to the global command
 
 
-Step 2) Append Snippets (in progress)
+### Step 2) Append Snippets (in progress)
 
 The ability to add more steps and scenarios to existing Unit and Browser tests
 
-### Todo
+So if they add new steps or scenarios to the feature pickle is smart enough to append the scenario(s)
+(easy stuff there) but also append steps into the scenario as needed.
 
-Everything! 
+#### Todo
 
-Step 3) Run from Gherkin
+Everything! I mean I have code to prevent duplicate methods.
+
+### Step 3) Run from Gherkin
 
 Running from the Gherkin test either the domain or ui test with nice Gherkin based output
 
-### Todo
+eg
+
+```
+pickle run tests/features/profile.feature --domain
+```
+
+And it would know to use the `tests/Unit/ProfileTest.php`
+
+and output in that nice Gherkin format like Behat.
+
+
+#### Todo
 
 Everything! 
 
-Step 4) Finalize Docs around this global command
+### Step 4) Finalize Docs around this global command
 
   * Intro Video explaining what and why
   * Good Docs
@@ -219,12 +235,11 @@ Step 4) Finalize Docs around this global command
 <a name="install"></a>
 ## Install
 
-Via Composer
+Global install coming soon...
+ 
+Right now to get working just download and run "composer install" and you are set.
 
-``` bash
-$ composer require anutile/pickle
-```
-
+But it will be a global command eventually not a package in a Laravel app
 
 <a name="testing"></a>
 ## Testing
