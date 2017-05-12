@@ -62,6 +62,7 @@ class GherkinToDusk extends BaseGherkinToDusk
         $this->breakIntoMethods();
 
         switch ($this->context) {
+            case 'unit':
             case 'domain':
                 $this->featureToUnit();
                 break;

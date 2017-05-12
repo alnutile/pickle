@@ -24,12 +24,14 @@
 <a name="overview"></a>
 ## Overview
 
-Gherkin to Dusk
+Gherkin to Dusk / PHPUnit
 
 This will attempt to make a easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
-In someways Behat but built around Dusk and how it goes about making the underlying
+In someways Behat but built around Dusk and PHPUnit and how it goes about making the underlying
 framework and testing work seamlessly.
 
+
+### Initialize
 For example I make a file `tests/feature/profile.feature`
 
 ```
@@ -47,23 +49,21 @@ Feature: Test Profile Page
     Then when I view my profile it will have those new settings
 ```
 
-Now as the developer this Scenario is written before any code is written.
-
 So at this point I can type
 
 ```
-vendor/bin/pickle initialize tests/features/profile.feature  --domain
+vendor/bin/pickle initialize tests/features/profile.feature  --unit
 ```
 
 or 
 
 ```
-vendor/bin/pickle initialize tests/features/profile.feature  --ui
+vendor/bin/pickle initialize tests/features/profile.feature  --browser
 ```
 
 In this case let's focus on domain.
 
-Now it will make a test for me in `tests/Unit/ProfileTest`
+Now it will make a test for me in `tests/Unit/ProfileTest.php`
 
 and I can start working on that file which would look something like this
 
@@ -76,22 +76,32 @@ class ProfileTest extends TestCase {
       * @group editProfile
       */
     public function testGivenIHaveAProfileCreated() {
+        $this->givenIHaveAProfileCreated();
         $this->andIamInEditMode();
+        //etc etc
     }
 
-   protected function andIamInEditMode() {
+    protected function andIamInEditMode() {
         $this->markTestIncomplete('Time to code');
     }
 
+    protected function andIamInEditMode() {
+        $this->markTestIncomplete('Time to code');
+    }
+    
     //and all the rest
 
 }
 
 ```
 
+### Running
 
+Now this is just icing on the cake and not ready yet BUT you can just default back to the basics
+and it will all still work.
 
 ```
+# Coming soon...
 vendor/bin/pickle run --domain tests/features/profile.feature 
 ```
 
@@ -104,6 +114,7 @@ phpunit tests/Unit/ProfileTest.php
 Or Dusk via Pickle
 
 ```
+# Comming less soon...
 vendor/bin/pickle run --ui tests/features/profile.feature 
 ```
 
@@ -150,7 +161,6 @@ class ExampleTest extends DuskTestCase
 
     private function visitHome()
     {
-
         $this->browser->visit('/');
     }
 
