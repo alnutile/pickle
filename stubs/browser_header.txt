@@ -1,11 +1,18 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Browser;
 
-use Tests\TestCase;
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class [TEST_NAME] extends TestCase
+class [TEST_NAME] extends DuskTestCase
 {
+
+    /**
+     * @var Browser
+     */
+    protected $browser;
+
+
 

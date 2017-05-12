@@ -1,0 +1,141 @@
+<?php
+
+namespace Tests\Browser;
+
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+class TestNamingTest extends DuskTestCase
+{
+
+    /**
+     * @var Browser
+     */
+    protected $browser;
+
+
+
+
+    public function testEditProfile()
+    {
+
+        $this->browse(function (Browser $browser) {
+            $this->browser = $browser;
+            $this->givenIHaveAProfileCreated();
+            $this->andIAmInEditMode();
+            $this->thenICanChangeTheFirstName();
+            $this->andTheLastName();
+            $this->andAndSaveMySettings();
+            $this->thenWhenIViewMyProfileItWillHaveThoseNewSettings();
+        });
+    }
+
+
+    protected function givenIHaveAProfileCreated()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function andIAmInEditMode()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function thenICanChangeTheFirstName()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function andTheLastName()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function andAndSaveMySettings()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function thenWhenIViewMyProfileItWillHaveThoseNewSettings()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    public function testViewProfile()
+    {
+
+        $this->browse(function (Browser $browser) {
+            $this->browser = $browser;
+            $this->givenIHaveAProfileCreated();
+            $this->andIAmInViewMode();
+            $this->thenICanSeeTheFirstName();
+            $this->andTheLastName();
+            $this->andAndGoIntoEditMode();
+            $this->thenWhenIWillBeAtTheEditForm();
+        });
+    }
+
+
+    protected function andIAmInViewMode()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function thenICanSeeTheFirstName()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function andAndGoIntoEditMode()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+    protected function thenWhenIWillBeAtTheEditForm()
+    {
+        $this->markTestIncomplete('Time to code');
+
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
+    }
+
+
+}

@@ -1,6 +1,10 @@
 
-    public function [PARENT_METHOD]() {
+    public function [PARENT_METHOD]()
+    {
 
+        $this->browse(function (Browser $browser) {
+            $this->browser = $browser;
         [STEPS_AREA]
+        });
     }
 

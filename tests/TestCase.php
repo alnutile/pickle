@@ -17,6 +17,8 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected $file;
 
+    protected $default_test_type = 'domain';
+
     /**
      * @var GherkinToDusk
      */
@@ -49,7 +51,7 @@ class TestCase extends PHPUnit_Framework_TestCase
             );
         }
 
-        $path = $this->gd->getDestinationFolderRoot();
+        $path = $this->gd->setContext($this->default_test_type)->getDestinationFolderRoot();
 
         /**
          * This can be come a path relative issue

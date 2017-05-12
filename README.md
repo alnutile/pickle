@@ -9,6 +9,21 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+## Topics
+
+  * [Overview](#overview)
+  * [UI Example](#ui)
+  * [RoadMap](#roadmap)
+  * [Install](#install)
+  * [Testing](#testing)
+  * [Contributing](#contributing)
+  * [Security](#security)
+  * [Credits](#credits)
+  * [License](#license)
+
+<a name="overview"></a>
+## Overview
+
 Gherkin to Dusk
 
 This will attempt to make a easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
@@ -98,22 +113,80 @@ Or via Dusk
 php artisan dusk tests/Browser/ProfileTest.php
 ```
 
+<a name="ui"></a>
+### UI Example
 
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
+Here is an example of what a Dusk UI test will then look like
 
 ```
-bin/        
-config/
-src/
-tests/
-vendor/
+<?php
+
+namespace Tests\Browser;
+
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+class ExampleTest extends DuskTestCase
+{
+    /**
+     * @var Browser
+     */
+    protected $browser;
+
+    /**
+     * A basic browser test example.
+     *
+     * @return void
+     */
+    public function testBasicExample()
+    {
+        $this->browse(function (Browser $browser) {
+            $this->browser = $browser;
+            $this->visitHome();
+            $this->seeSomething();
+        });
+    }
+
+    private function visitHome()
+    {
+
+        $this->browser->visit('/');
+    }
+
+    private function seeSomething()
+    {
+        $this->browser->assertSee('Laravel');
+    }
+}
+
 ```
 
+Setting the Browser as global set we can work one step at a time 
+
+  * visit the page
+  * enter a form field 
+  * enter another form field
+  * submit
+  * look for results 
+  
+<a name="roadmap"></a>
+## RoadMap
+
+Step 1) Initialize (DONE)
+
+The ability to use a Gherkin file to create a Unit or Browser test
 
 
+Step 2) Append Snippets (in progress)
 
+The ability to add more steps and scenarios to existing Unit and Browser tests
+
+Step 3) Run from Gherkin
+
+Running from the Gherkin test either the domain or ui test with nice Gherkin based output
+
+<a name="install"></a>
 ## Install
 
 Via Composer
@@ -122,33 +195,30 @@ Via Composer
 $ composer require anutile/pickle
 ```
 
-## Usage
 
-Comming soon..
-
-## Change log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
+<a name="testing"></a>
 ## Testing
 
 ``` bash
 $ composer test
 ```
-
+<a name="contributing"></a>
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
+<a name="security"></a>
 ## Security
 
 If you discover any security related issues, please email me@alfrednutile.info instead of using the issue tracker.
 
+<a name="credits"></a>
 ## Credits
 
 - [Alfred Nutile][link-author]
 - [All Contributors][link-contributors]
 
+<a name="license"></a>
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

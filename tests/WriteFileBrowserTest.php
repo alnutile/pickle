@@ -9,6 +9,9 @@ class WriteFileBrowserTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
+        $this->default_test_type = 'browser';
+
         $this->instantiateGD();
 
         $this->setupFolderAndFile();
@@ -22,7 +25,6 @@ class WriteFileBrowserTest extends TestCase
 
     public function testShouldMakeFileWithCorrectName()
     {
-        $this->markTestSkipped("taking break");
         $path = $this->gd->setContext('ui')
                 ->getDestinationFolderRoot() . '/tests/Browser/TestNamingTest.php';
         \PHPUnit_Framework_Assert::assertFileNotExists($path);
@@ -33,14 +35,31 @@ class WriteFileBrowserTest extends TestCase
             ->initializeFeature();
 
 
-        //dd($this->gd->setContext('browser')->getDestinationFolderRoot());
         \PHPUnit_Framework_Assert::assertEquals(
             getcwd() . '/tests/Browser',
-            $this->gd->setContext('ui')->getDestinationFolderRoot()
+            $this->gd->getDestinationFolderRoot()
         );
 
         \PHPUnit_Framework_Assert::assertFileExists(
             $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php'
         );
+    }
+
+    public function testMakeFileForBrowser()
+    {
+        $path = $this->gd->setContext('ui')
+                ->getDestinationFolderRoot() . '/tests/Browser/TestNamingTest.php';
+        \PHPUnit_Framework_Assert::assertFileNotExists($path);
+
+        $path = 'tests/features/test_naming.feature';
+        $this->gd->setPathToFeature($path)
+            ->setContext('browser')
+            ->initializeFeature();
+
+        $fixture_path = __DIR__ . '/fixtures/TestNamingTest.phpBROWSER_EXAMPLE';
+
+        $results_path = $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php';
+
+        \PHPUnit_Framework_Assert::assertFileEquals($results_path, $fixture_path);
     }
 }

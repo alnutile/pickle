@@ -1,6 +1,9 @@
 
-    protected function [STEP]() {
-
+    protected function [STEP]()
+    {
         $this->markTestIncomplete('Time to code');
 
+        $this->browser->visit('/');
+        //and in the next step
+        //$this->browser->assertSee('Laravel');
     }

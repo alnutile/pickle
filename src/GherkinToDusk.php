@@ -10,6 +10,7 @@ use Behat\Gherkin\Loader\YamlFileLoader;
 use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
 use GD\Helpers\BuildOutContent;
+use GD\Helpers\WriteBrowserFile;
 use GD\Helpers\WritePHPUnitFile;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
@@ -45,6 +46,11 @@ class GherkinToDusk extends BaseGherkinToDusk
      */
     protected $write_unit_test;
 
+    /**
+     * @var WriteBrowserFile
+     */
+    protected $write_browser_test;
+
     public function initializeFeature()
     {
         $this->loadFileContent();
@@ -59,6 +65,7 @@ class GherkinToDusk extends BaseGherkinToDusk
             case 'domain':
                 $this->featureToUnit();
                 break;
+            case 'ui':
             case 'browser':
                 $this->featureToBrowser();
                 break;
@@ -70,6 +77,11 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected function featureToBrowser()
     {
+        $this->getWriteBrowserTest()->writeTest(
+            $this->getDestinationFolderRoot(),
+            $this->getDuskTestName(),
+            $this->getDuskClassAndMethods()
+        );
     }
 
     protected function featureToUnit()
@@ -132,7 +144,8 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     private function loadFileContent()
     {
-        $this->feature_content = $this->getFilesystem()->get($this->getFullPathToFileAndFileName());
+        $this->feature_content =
+            $this->getFilesystem()->get($this->getFullPathToFileAndFileName());
     }
 
     private function passThroughParser()
@@ -236,6 +249,31 @@ class GherkinToDusk extends BaseGherkinToDusk
     public function setDuskTestName($dusk_test_name)
     {
         $this->dusk_test_name = $dusk_test_name;
+    }
+
+    public function getWriteBrowserTest()
+    {
+
+        if (!$this->write_browser_test) {
+            $this->setWriteBrowserTest();
+        }
+
+        return $this->write_browser_test;
+    }
+
+    /**
+     * @param null $write_browser_test
+     * @return GherkinToDusk
+     * @internal param WritePHPUnitFile $write_unit_test
+     */
+    public function setWriteBrowserTest($write_browser_test = null)
+    {
+        if (!$write_browser_test) {
+            $write_browser_test = new WriteBrowserFile();
+        }
+
+        $this->write_browser_test = $write_browser_test;
+        return $this;
     }
 
     public function getWriteUnitTest()

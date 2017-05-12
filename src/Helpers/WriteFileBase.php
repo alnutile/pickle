@@ -12,6 +12,7 @@ abstract class WriteFileBase
     protected $write_destination_folder_path = "";
     protected $dusk_class_and_methods_string = "";
     protected $write_class_name = "";
+    protected $spacing = "";
 
     /**
      * @var Filesystem
@@ -80,13 +81,21 @@ abstract class WriteFileBase
     {
         $references = "";
 
-        foreach ($steps as $step) {
-            $references = $references . $step['reference'] . ";\n        ";
+        foreach ($steps as $index => $step) {
+            $references = $references . $this->spacing . $step['reference'] . $this->notLastLine($steps, $index);
             $this->addNewStepToTest($step, $this->step_template);
         }
 
         $this->dusk_class_and_methods_string =
             str_replace("[STEPS_AREA]", $references, $this->dusk_class_and_methods_string);
+    }
+
+    protected function notLastLine(array $steps, $index) {
+        if(($index + 1) < count($steps)) {
+            return ";\n        ";
+        }
+
+        return ";";
     }
 
 
@@ -123,7 +132,6 @@ abstract class WriteFileBase
 
     protected function saveToFile()
     {
-
         $this->getFilesystem()->put(
             sprintf("%s/%s.php", $this->write_destination_folder_path, $this->write_class_name),
             $this->dusk_class_and_methods_string

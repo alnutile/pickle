@@ -5,6 +5,8 @@ namespace GD\Helpers;
 class WriteBrowserFile extends WriteFileBase
 {
 
+    protected $spacing = "    ";
+
     public function writeTest($path, $name, $dusk_class_and_methods)
     {
 
@@ -17,6 +19,22 @@ class WriteBrowserFile extends WriteFileBase
         $this->convertDuskClassAndMethodsArrayToText($dusk_class_and_methods);
 
         $this->saveToFile();
+    }
+
+    protected function getAndSetHeaderArea()
+    {
+        $path = __DIR__ . '/../../stubs/browser_header.txt';
+        $this->content = $this->getFilesystem()->get($path);
+
+        parent::getAndSetHeaderArea();
+    }
+
+    protected function getAndSetFooterArea()
+    {
+        $path = __DIR__ . '/../../stubs/browser_footer.txt';
+        $content = $this->getFilesystem()->get($path);
+
+        $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . $content;
     }
 
     protected function addParentContent($parent_function)
@@ -35,19 +53,5 @@ class WriteBrowserFile extends WriteFileBase
         parent::addSteps($steps);
     }
 
-    protected function getAndSetHeaderArea()
-    {
-        $path = __DIR__ . '/../../stubs/browser_header.txt';
-        $this->content = $this->getFilesystem()->get($path);
 
-        parent::getAndSetHeaderArea();
-    }
-
-    protected function getAndSetFooterArea()
-    {
-        $path = __DIR__ . '/../../stubs/browser_footer.txt';
-        $content = $this->getFilesystem()->get($path);
-
-        $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . $content;
-    }
 }
