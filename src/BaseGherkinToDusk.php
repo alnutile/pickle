@@ -5,6 +5,7 @@ namespace GD;
 
 use Behat\Gherkin\Parser;
 use Illuminate\Filesystem\Filesystem;
+use Silly\Edition\Pimple\Application;
 
 class BaseGherkinToDusk
 {
@@ -40,10 +41,19 @@ class BaseGherkinToDusk
      */
     protected $parser;
 
-    public function __construct(Filesystem $filesystem, Parser $parser = null)
+
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
     {
-        $this->filesystem = $filesystem;
-        $this->parser = $parser;
+        $this->app = $app;
+
+        $this->filesystem = $this->app->getContainer()['filesystem'];
+
+        $this->parser = $this->app->getContainer()['parser'];
     }
 
 
@@ -93,6 +103,7 @@ class BaseGherkinToDusk
 
     /**
      * @param null $file_name_and_path
+     * @return $this
      */
     public function setFileNameAndPath($file_name_and_path = null)
     {

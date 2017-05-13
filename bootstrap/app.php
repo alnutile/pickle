@@ -35,12 +35,15 @@ $app->getContainer()[Illuminate\Filesystem\Filesystem::class] = function() {
 
 
 $app->getContainer()[GD\GherkinToDusk::class] = function() use ($app) {
-    $parser = $app->getContainer()[\Behat\Gherkin\Parser::class];
-    $files  = $app->getContainer()[Illuminate\Filesystem\Filesystem::class];
-    $gd = new GD\GherkinToDusk($files, $parser);
+    $gd = new GD\GherkinToDusk($app);
 
     return $gd;
 };
+
+
+$app->getContainer()['filesystem'] = $app->getContainer()[Illuminate\Filesystem\Filesystem::class];
+
+$app->getContainer()['parser'] = $app->getContainer()[\Behat\Gherkin\Parser::class];
 
 
 return $app;

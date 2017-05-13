@@ -38,7 +38,7 @@ $app->command('initialize [--context=] relative_feature_file_path', function (
 
 
 
-$app->command('update [--context=]', function (
+$app->command('update [--context=] relative_feature_file_path', function (
     OutputInterface $output,
     \Illuminate\Filesystem\Filesystem $files, $context) {
 
@@ -61,33 +61,46 @@ $app->command('update [--context=]', function (
 
 })->defaults([
     'context' => "domain"
-])->descriptions("This will review the file and stub out new Steps and or Scenarios",
+])->descriptions("This will stuff out your feature into a Dusk Test file",
     [
-        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside"
-    ]);
+        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
+        "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"
+    ]
+);
 
-$app->command('run [--domain]', function (
+$app->command('run [--context=] relative_feature_file_path', function (
     OutputInterface $output,
-    \Illuminate\Filesystem\Filesystem $files, $domain) {
+    \Illuminate\Filesystem\Filesystem $files, $context, $relative_feature_file_path) use ($app) {
 
 
-    //dd($domain);
-    //get path of file
-    //then find the matching test
-    //and pass that as a filter to Dusk
-    //at this point though the user can just be using dusk
-    // run all
-    // run context folder
-    // run ui files
-    // Dusk knows all about this
+    if($context == 'domain') {
+        //run the phpunit tests
+        //one per file
+        //and if fail then fail out
+
+        $run = new \GD\RunTest($app);
+
+        $run->handleDomain($relative_feature_file_path);
+
+
+        $path_to_test = 'foo';
+        $command = sprintf("vendor/bin/phpunit %s", $path_to_test);
+        $process = new Symfony\Component\Process\Process($command);
+
+        //@TODO directory level too
+
+    }
+
     $output->write("\n****done*****\n");
 
-})->defaults(
-    ['domain'])->descriptions("This will stuff out your feature into a Dusk Test file",
+})->defaults([
+    'context' => "domain"
+])->descriptions("This will stuff out your feature into a Dusk Test file",
     [
-        '--domain' => "Run Feature level tests not Browser"
-    ]);
-
+        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
+        "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"
+    ]
+);
 
 
 $app->run();
