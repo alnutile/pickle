@@ -7,26 +7,25 @@ require __DIR__.'/bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
 
-
-
 $app->command('initialize [--context=] relative_feature_file_path', function (
     OutputInterface $output,
     GD\GherkinToDusk $gd, $context, $relative_feature_file_path) {
 
     //get source path of file
-    $gd->setContext($context)
-        ->setPathToFeature($relative_feature_file_path)
-        ->initializeFeature();
+    $output->write("\nCreating File for you\n");
 
-    //see if we have a matching class
-    //if we do not then make the needed Class
-    // and using the $context we can put it into the proper dusk folder
-    //with the right name
-    //and then add the Scenario
-    //and all the related Steps
-    //and if it has a Background for Setup needs
+    try {
+        $gd->setContext($context)
+            ->setPathToFeature($relative_feature_file_path)
+            ->initializeFeature();
 
-    $output->write("\n****done*****\n");
+        $path = $gd->fullPathToDestinationFile();
+        $output->write(sprintf("File now in %s for you to work on", $path));
+
+        $output->write("\n****done*****\n");
+    } catch (\Exception $e) {
+        $output->write(sprintf("Error initializing \nMESSAGE: %s\n", $e->getMessage()));
+    }
 
 })->defaults([
     'context' => "domain"

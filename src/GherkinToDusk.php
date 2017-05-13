@@ -88,6 +88,7 @@ class GherkinToDusk extends BaseGherkinToDusk
     protected function featureToUnit()
     {
 
+        $this->checkIfFileExists();
         $this->getWriteUnitTest()->writeTest(
             $this->getDestinationFolderRoot(),
             $this->getDuskTestName(),
@@ -299,5 +300,18 @@ class GherkinToDusk extends BaseGherkinToDusk
 
         $this->write_unit_test = $write_unit_test;
         return $this;
+    }
+
+    private function checkIfFileExists()
+    {
+        if($this->filesystem->exists($this->fullPathToDestinationFile())) {
+            $path = $this->fullPathToDestinationFile();
+            throw new \GD\Exceptions\TestFileExists(sprintf("The test file exists already %s please use `append` command", $path));
+        }
+    }
+
+    public function fullPathToDestinationFile()
+    {
+        return $this->getDestinationFolderRoot() . '/' . $this->getDuskTestName() . '.php';
     }
 }

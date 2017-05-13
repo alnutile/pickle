@@ -37,7 +37,6 @@ class TestCase extends PHPUnit_Framework_TestCase
         $this->app = $this->createApplication();
         $this->gd = $this->app->getContainer()[\GD\GherkinToDusk::class];
         $this->file = $this->app->getContainer()[\Illuminate\Filesystem\Filesystem::class];
-
     }
 
     public function instantiateGD()

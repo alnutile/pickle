@@ -17,5 +17,5 @@ define('PICKLE_START', microtime(true));
 if (is_file($autoload = __DIR__.'/vendor/autoload.php')) {
     require $autoload;
 } else {
-    require __DIR__ . '/../../../vendor/autoload.php';
+    require __DIR__ . '/../../../../vendor/autoload.php';
 }

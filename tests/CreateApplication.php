@@ -3,7 +3,6 @@
 
 namespace GD\Tests;
 
-
 trait CreateApplication
 {
     /**
