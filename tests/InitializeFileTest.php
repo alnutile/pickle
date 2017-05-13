@@ -14,7 +14,7 @@ class InitializeFileTest extends TestCase
 
     public function setUp()
     {
-        $this->instantiateGD();
+        parent::setUp();
 
         $this->setupFolderAndFile();
     }
@@ -55,8 +55,10 @@ class InitializeFileTest extends TestCase
     {
 
         $path = 'tests/features/test_naming.feature';
-        $this->gd->setPathToFeature($path)
-            ->initializeFeature();
+
+        $this->gd->setPathToFeature($path);
+
+        $this->gd->initializeFeature();
 
         $this->assertEquals("TestNamingTest", $this->gd->getDuskTestName());
     }

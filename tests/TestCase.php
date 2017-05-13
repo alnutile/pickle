@@ -12,6 +12,9 @@ use PHPUnit_Framework_TestCase;
 
 class TestCase extends PHPUnit_Framework_TestCase
 {
+
+    use CreateApplication;
+
     /**
      * @var Filesystem
      */
@@ -20,14 +23,28 @@ class TestCase extends PHPUnit_Framework_TestCase
     protected $default_test_type = 'domain';
 
     /**
+     * @var \Silly\Edition\Pimple\Application
+     */
+    protected $app;
+
+    /**
      * @var GherkinToDusk
      */
     protected $gd;
 
+    protected function setUp()
+    {
+        $this->app = $this->createApplication();
+        $this->gd = $this->app->getContainer()[\GD\GherkinToDusk::class];
+        $this->file = $this->app->getContainer()[\Illuminate\Filesystem\Filesystem::class];
+
+    }
+
     public function instantiateGD()
     {
-        $this->file = new Filesystem();
-        $il8n = __DIR__ . '/../src/i18n.yml';
+         $this->file = new Filesystem();
+
+        $il8n = __DIR__ . '/../bootstrap/i18n.yml';
         $keywords = new CucumberKeywords($il8n);
         $keywords->setLanguage('en');
         $lexer = new Lexer($keywords);

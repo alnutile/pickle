@@ -12,8 +12,6 @@ class WriteFileBrowserTest extends TestCase
 
         $this->default_test_type = 'browser';
 
-        $this->instantiateGD();
-
         $this->setupFolderAndFile();
     }
 

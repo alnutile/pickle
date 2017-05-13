@@ -9,8 +9,6 @@ class WriteFileTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->instantiateGD();
-
         $this->setupFolderAndFile();
     }
 

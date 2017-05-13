@@ -183,7 +183,7 @@ Setting the Browser as global set we can work one step at a time
 <a name="roadmap"></a>
 ## RoadMap
 
-### Step 1) Initialize (IN PROGRESS)
+### Initialize (IN PROGRESS)
 
 The ability to use a Gherkin file to create a Unit or Browser test
 
@@ -196,7 +196,7 @@ I will take that one asap
 Right now the test show it working now I need to add it to the global command
 
 
-### Step 2) Append Snippets (NEXT)
+### Append Snippets (NEXT)
 
 The ability to add more steps and scenarios to existing Unit and Browser tests
 
@@ -207,7 +207,7 @@ So if they add new steps or scenarios to the feature pickle is smart enough to a
 
 Everything! I mean I have code to prevent duplicate methods.
 
-### Step 3) Run from Gherkin
+### Run from Gherkin
 
 Running from the Gherkin test either the domain or ui test with nice Gherkin based output
 
@@ -226,10 +226,39 @@ and output in that nice Gherkin format like Behat.
 
 Everything! 
 
-### Step 4) Finalize Docs around this global command
+### Finalize Docs around this global command
 
   * Intro Video explaining what and why
   * Good Docs
+
+
+### Running pickle runs folders
+
+Instead of `pickle run tests/features/foo.feature` just running `pickle run` should work
+
+
+### Tags
+
+Since I am using the Behat Gherkin library we have access to tags `pickle:24` shows 
+
+```
+$pimple[\Behat\Gherkin\Parser::class] = function() {
+    $il8n = __DIR__ . '/../src/i18n.yml';
+
+    $keywords = new CucumberKeywords($il8n);
+
+    $keywords->setLanguage('en');
+
+    $lexer = new Lexer($keywords);
+
+    $parser = new Parser($lexer);
+    return $parser;
+};
+
+```
+
+Now to get `pickle --tags=@happy_path` to work.
+
 
 
 <a name="install"></a>

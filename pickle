@@ -1,52 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-if (is_file($autoload = __DIR__.'/vendor/autoload.php')) {
-    require $autoload;
-} else {
-    require __DIR__ . '/../../../vendor/autoload.php';
-}
-
-use Behat\Gherkin\Keywords\CucumberKeywords;
-use Behat\Gherkin\Lexer;
-use Illuminate\Console\Parser;
-use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 
+require __DIR__.'/bootstrap/autoload.php';
 
-$app = new Silly\Edition\Pimple\Application();
+$app = require_once __DIR__.'/bootstrap/app.php';
 
-$pimple = $app->getContainer();
-
-$pimple[\Behat\Gherkin\Parser::class] = function() {
-    $il8n = __DIR__ . '/../src/i18n.yml';
-
-    $keywords = new CucumberKeywords($il8n);
-
-    $keywords->setLanguage('en');
-
-    $lexer = new Lexer($keywords);
-
-    $parser = new Parser($lexer);
-    return $parser;
-};
-
-
-$pimple[Illuminate\Filesystem\Filesystem::class] = function() {
-    return new \Illuminate\Filesystem\Filesystem();
-};
-
-
-$pimple[GD\GherkinToDusk::class] = function() use ($pimple) {
-    $gd = new GD\GherkinToDusk($pimple[Illuminate\Filesystem\Filesystem::class]);
-
-    $gd->setParser($pimple[\Behat\Gherkin\Parser::class]);
-
-    return $gd;
-};
 
 
 $app->command('initialize [--context=] relative_feature_file_path', function (
