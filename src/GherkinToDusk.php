@@ -78,6 +78,8 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected function featureToBrowser()
     {
+        $this->checkIfFileExists();
+
         $this->getWriteBrowserTest()->writeTest(
             $this->getDestinationFolderRoot(),
             $this->getDuskTestName(),
@@ -87,8 +89,8 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     protected function featureToUnit()
     {
-
         $this->checkIfFileExists();
+
         $this->getWriteUnitTest()->writeTest(
             $this->getDestinationFolderRoot(),
             $this->getDuskTestName(),
@@ -304,9 +306,10 @@ class GherkinToDusk extends BaseGherkinToDusk
 
     private function checkIfFileExists()
     {
-        if($this->filesystem->exists($this->fullPathToDestinationFile())) {
+        if ($this->filesystem->exists($this->fullPathToDestinationFile())) {
             $path = $this->fullPathToDestinationFile();
-            throw new \GD\Exceptions\TestFileExists(sprintf("The test file exists already %s please use `append` command", $path));
+            $message = sprintf("The test file exists already %s please use `append` command", $path);
+            throw new \GD\Exceptions\TestFileExists($message);
         }
     }
 

@@ -3,6 +3,8 @@
 
 namespace GD\Tests;
 
+use GD\Exceptions\TestFileExists;
+
 class WriteFileTest extends TestCase
 {
 
@@ -92,7 +94,7 @@ HEARDOC;
     }
 
     /**
-     * @expectedException
+     * @expectedException \GD\Exceptions\TestFileExists
      */
     public function testPreventOverwrite()
     {

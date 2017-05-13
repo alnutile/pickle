@@ -13,6 +13,3 @@ class [TEST_NAME] extends DuskTestCase
      * @var Browser
      */
     protected $browser;
-
-
-

@@ -66,10 +66,12 @@ $app->command('update [--context=]', function (
         '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside"
     ]);
 
-$app->command('run', function (
+$app->command('run [--domain]', function (
     OutputInterface $output,
-    \Illuminate\Filesystem\Filesystem $files) {
+    \Illuminate\Filesystem\Filesystem $files, $domain) {
 
+
+    //dd($domain);
     //get path of file
     //then find the matching test
     //and pass that as a filter to Dusk
@@ -80,8 +82,11 @@ $app->command('run', function (
     // Dusk knows all about this
     $output->write("\n****done*****\n");
 
-})->defaults([])->descriptions("This will stuff out your feature into a Dusk Test file",
-    []);
+})->defaults(
+    ['domain'])->descriptions("This will stuff out your feature into a Dusk Test file",
+    [
+        '--domain' => "Run Feature level tests not Browser"
+    ]);
 
 
 
