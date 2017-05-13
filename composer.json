@@ -26,6 +26,7 @@
         "larapack/dd": "1.*",
         "mnapoli/silly": "^1.5",
         "mnapoli/silly-pimple": "^1.0",
+        "mockery/mockery": "0.9.*",
         "symfony/console": "~3.2",
         "symfony/process": "~3.2",
         "symfony/yaml": "^3.2"

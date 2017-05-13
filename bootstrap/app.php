@@ -45,5 +45,13 @@ $app->getContainer()['filesystem'] = $app->getContainer()[Illuminate\Filesystem\
 
 $app->getContainer()['parser'] = $app->getContainer()[\Behat\Gherkin\Parser::class];
 
+$app->getContainer()['output'] = function() use ($app) {
+
+    return new Symfony\Component\Console\Output\ConsoleOutput();
+
+};
+
+
+
 
 return $app;

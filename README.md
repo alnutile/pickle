@@ -13,6 +13,7 @@
 
   * [Overview](#overview)
   * [UI Example](#ui)
+  * [Running](#running)
   * [RoadMap](#roadmap)
   * [Install](#install)
   * [Testing](#testing)
@@ -102,7 +103,7 @@ and it will all still work.
 
 ```
 # Coming soon...
-vendor/bin/pickle run --domain tests/features/profile.feature 
+vendor/bin/pickle run --context=domain tests/features/profile.feature 
 ```
 
 Or now using just go back to using PHPUnit
@@ -115,7 +116,7 @@ Or Dusk via Pickle
 
 ```
 # Comming less soon...
-vendor/bin/pickle run --ui tests/features/profile.feature 
+vendor/bin/pickle run --context=ui tests/features/profile.feature 
 ```
 
 Or via Dusk

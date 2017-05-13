@@ -39,7 +39,6 @@ class GherkinToDusk extends BaseGherkinToDusk
      */
     protected $dusk_class_and_methods;
 
-    protected $dusk_test_name;
 
     /**
      * @var WritePHPUnitFile
@@ -98,21 +97,6 @@ class GherkinToDusk extends BaseGherkinToDusk
         );
     }
 
-    /**
-     * @return Parser
-     */
-    public function getParser()
-    {
-        return $this->parser;
-    }
-
-    /**
-     * @param Parser $parser
-     */
-    public function setParser($parser)
-    {
-        $this->parser = $parser;
-    }
 
     /**
      * @return boolean
@@ -210,18 +194,7 @@ class GherkinToDusk extends BaseGherkinToDusk
         }
     }
 
-    private function buildDuskTestName()
-    {
-        if (!$this->dusk_test_name) {
-            $name = $this->getFilesystem()->name($this->getFullPathToFileAndFileName());
-            $this->dusk_test_name = ucfirst(camel_case($name) . 'Test');
-        }
-    }
 
-    private function getFullPathToFileAndFileName()
-    {
-        return getcwd() . DIRECTORY_SEPARATOR . $this->getPathToFeature();
-    }
 
     /**
      * @return mixed
@@ -239,21 +212,7 @@ class GherkinToDusk extends BaseGherkinToDusk
         $this->dusk_class_and_methods = $dusk_class_and_methods;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDuskTestName()
-    {
-        return $this->dusk_test_name;
-    }
 
-    /**
-     * @param mixed $dusk_test_name
-     */
-    public function setDuskTestName($dusk_test_name)
-    {
-        $this->dusk_test_name = $dusk_test_name;
-    }
 
     public function getWriteBrowserTest()
     {
@@ -311,10 +270,5 @@ class GherkinToDusk extends BaseGherkinToDusk
             $message = sprintf("The test file exists already %s please use `append` command", $path);
             throw new \GD\Exceptions\TestFileExists($message);
         }
-    }
-
-    public function fullPathToDestinationFile()
-    {
-        return $this->getDestinationFolderRoot() . '/' . $this->getDuskTestName() . '.php';
     }
 }

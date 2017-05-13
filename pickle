@@ -2,6 +2,8 @@
 <?php
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 require __DIR__.'/bootstrap/autoload.php';
 
@@ -72,26 +74,16 @@ $app->command('run [--context=] relative_feature_file_path', function (
     OutputInterface $output,
     \Illuminate\Filesystem\Filesystem $files, $context, $relative_feature_file_path) use ($app) {
 
-
     if($context == 'domain') {
-        //run the phpunit tests
-        //one per file
-        //and if fail then fail out
-
         $run = new \GD\RunTest($app);
 
         $run->handleDomain($relative_feature_file_path);
 
+    } else {
+        $run = new \GD\RunTest($app);
 
-        $path_to_test = 'foo';
-        $command = sprintf("vendor/bin/phpunit %s", $path_to_test);
-        $process = new Symfony\Component\Process\Process($command);
-
-        //@TODO directory level too
-
+        $run->handleBrowser($relative_feature_file_path);
     }
-
-    $output->write("\n****done*****\n");
 
 })->defaults([
     'context' => "domain"

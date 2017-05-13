@@ -19,6 +19,7 @@ class BaseGherkinToDusk
     protected $path_to_feature = null;
 
 
+    protected $dusk_test_name;
 
     /**
      * Conventions
@@ -41,6 +42,8 @@ class BaseGherkinToDusk
      */
     protected $parser;
 
+
+    protected $output;
 
     /**
      * @var Application
@@ -82,10 +85,10 @@ class BaseGherkinToDusk
      */
     public function setFilesystem($filesystem = null)
     {
+
         if (!$filesystem) {
             $filesystem = new Filesystem();
         }
-
         $this->filesystem = $filesystem;
         return $this;
     }
@@ -184,6 +187,23 @@ class BaseGherkinToDusk
     }
 
     /**
+     * @return Parser
+     */
+    public function getParser()
+    {
+        return $this->parser;
+    }
+
+    /**
+     * @param Parser $parser
+     */
+    public function setParser($parser)
+    {
+        $this->parser = $parser;
+    }
+
+    
+    /**
      * @return null
      */
     public function getPathToFeature()
@@ -201,6 +221,41 @@ class BaseGherkinToDusk
         return $this;
     }
 
+    public function fullPathToDestinationFile()
+    {
+        return $this->getDestinationFolderRoot() . '/' . $this->getDuskTestName() . '.php';
+    }
+
+
+    protected function buildDuskTestName()
+    {
+        if (!$this->dusk_test_name) {
+            $name = $this->getFilesystem()->name($this->getFullPathToFileAndFileName());
+            $this->dusk_test_name = ucfirst(camel_case($name) . 'Test');
+        }
+    }
+
+    protected function getFullPathToFileAndFileName()
+    {
+        return getcwd() . DIRECTORY_SEPARATOR . $this->getPathToFeature();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDuskTestName()
+    {
+        return $this->dusk_test_name;
+    }
+
+    /**
+     * @param mixed $dusk_test_name
+     */
+    public function setDuskTestName($dusk_test_name)
+    {
+        $this->dusk_test_name = $dusk_test_name;
+    }
+    
     private function getContextFolder()
     {
         switch ($this->context) {
