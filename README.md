@@ -98,11 +98,10 @@ class ProfileTest extends TestCase {
 
 ### Running
 
-Now this is just icing on the cake and not ready yet BUT you can just default back to the basics
+Now this is just icing on the cake and you can just default back to the basics
 and it will all still work.
 
 ```
-# Coming soon...
 vendor/bin/pickle run --context=domain tests/features/profile.feature 
 ```
 
@@ -115,7 +114,6 @@ phpunit tests/Unit/ProfileTest.php
 Or Dusk via Pickle
 
 ```
-# Comming less soon...
 vendor/bin/pickle run --context=ui tests/features/profile.feature 
 ```
 
