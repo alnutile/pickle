@@ -1,0 +1,137 @@
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class TestAppendTest extends TestCase
+{
+
+
+    public function testEditProfile() {
+
+        $this->givenIHaveAProfileCreated();
+        $this->andIAmInEditMode();
+        $this->thenICanChangeTheFirstName();
+        $this->andTheLastName();
+        $this->andAndSaveMySettings();
+        $this->thenWhenIViewMyProfileItWillHaveThoseNewSettings();
+    }
+
+
+    protected function givenIHaveAProfileCreated() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andIAmInEditMode() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenICanChangeTheFirstName() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andTheLastName() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andAndSaveMySettings() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenWhenIViewMyProfileItWillHaveThoseNewSettings() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    public function testViewProfile() {
+
+        $this->givenIHaveAProfileCreated();
+        $this->andIAmInViewMode();
+        $this->thenICanSeeTheFirstName();
+        $this->andTheLastName();
+        $this->andAndGoIntoEditMode();
+        $this->thenWhenIWillBeAtTheEditForm();
+    }
+
+
+    protected function andIAmInViewMode() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenICanSeeTheFirstName() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andAndGoIntoEditMode() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenWhenIWillBeAtTheEditForm() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+
+
+    public function testGuestViewsProfile() {
+
+        $this->givenIAmLoggedInAsUserFoo();
+        $this->andIGoToLookAtTheProfileOfUserBar();
+        $this->thenICanSeeTheFirstNameOfFoo();
+        $this->andTheLastNameOfFoo();
+        $this->thenICanNotGoIntoEditMode();
+    }
+
+
+    protected function givenIAmLoggedInAsUserFoo() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andIGoToLookAtTheProfileOfUserBar() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenICanSeeTheFirstNameOfFoo() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function andTheLastNameOfFoo() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+    protected function thenICanNotGoIntoEditMode() {
+
+        $this->markTestIncomplete('Time to code');
+
+    }
+
+}

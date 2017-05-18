@@ -19,3 +19,10 @@ Scenario: View Profile
   And the last name
   And and go into edit mode
   Then when I will be at the edit form
+
+Scenario: Guest Views Profile
+  Given I am logged in as user foo
+  And I go to look at the profile of user bar
+  Then I can see the first name of foo
+  And the last name of foo
+  Then I can not go into edit mode

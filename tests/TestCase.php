@@ -52,6 +52,40 @@ class TestCase extends PHPUnit_Framework_TestCase
     }
 
 
+    protected function setupFolderAndAppendFile()
+    {
+        $path = $this->gd->getSourcePath();
+
+        /**
+         * This can be come a path relative issue
+         */
+        if (!$this->file->exists($path)) {
+            $this->file->makeDirectory($path, 0777, true);
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/features/test_append.feature',
+                $this->gd->getSourcePath() . 'test_append.feature'
+            );
+
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/features/test_append.feature',
+                $this->gd->getSourcePath() . 'test_append_not_there.feature'
+            );
+        }
+
+        $path = $this->gd->setContext($this->default_test_type)->getDestinationFolderRoot();
+
+        /**
+         * This can be come a path relative issue
+         */
+        if (!$this->file->exists($path)) {
+            $this->file->makeDirectory($path, 0777, true);
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/TestAppendTest.phpBEFORE_TEMPLATE',
+                $path . '/TestAppendTest.php'
+            );
+        }
+    }
+    
     protected function setupFolderAndFile()
     {
         $path = $this->gd->getSourcePath();

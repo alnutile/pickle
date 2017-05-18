@@ -13,6 +13,7 @@ abstract class WriteFileBase
     protected $dusk_class_and_methods_string = "";
     protected $write_class_name = "";
     protected $spacing = "";
+    protected $existing_test_content;
 
     /**
      * @var Filesystem
@@ -21,6 +22,15 @@ abstract class WriteFileBase
     protected $base;
     protected $step_template;
     protected $content;
+
+    /**
+     * @return string
+     */
+    public function getWriteClassName()
+    {
+        return $this->write_class_name;
+    }
+
 
     /**
      * @return Filesystem
@@ -137,5 +147,29 @@ abstract class WriteFileBase
             sprintf("%s/%s.php", $this->write_destination_folder_path, $this->write_class_name),
             $this->dusk_class_and_methods_string
         );
+    }
+
+    public function getExistingTestContent()
+    {
+
+        if (!$this->existing_test_content) {
+            $this->setExistingTestContent();
+        }
+        
+        return $this->existing_test_content;
+    }
+
+    /**
+     * @param mixed $existing_test_content
+     */
+    public function setExistingTestContent($existing_test_content = null)
+    {
+        if (!$existing_test_content) {
+            $file_to_append = $this->write_destination_folder_path . '/' . $this->write_class_name . '.php';
+            $content = $this->getFilesystem()->get($file_to_append);
+            $this->existing_test_content = $content;
+        }
+        
+        $this->existing_test_content = $existing_test_content;
     }
 }

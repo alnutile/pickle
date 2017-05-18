@@ -39,31 +39,27 @@ $app->command('initialize [--context=] relative_feature_file_path', function (
 );
 
 
-
-$app->command('update [--context=] relative_feature_file_path', function (
+$app->command('append [--context=] relative_feature_file_path', function (
     OutputInterface $output,
-    \Illuminate\Filesystem\Filesystem $files, $context) {
+    GD\GherkinToDusk $gd, $context, $relative_feature_file_path) {
 
-    //get path of file
-    //find the matching class
-    //make sure the order is there
-    //and all the methods are there
-    //for example:
-    //Scenario: Foo Bar
-    //  Given I am doing x
-    //  And I do y
-    //  Then I should have z
-    //Then there should be a method
-    // public function testFooBar() {
-    //And if there are Steps then that would have those steps
-    //   $this->givenIAmDoingX()
-    //   $this->andIDoY()
-    //   $this->thenIShouldHaveZ
-    $output->write("\n****done*****\n");
+//get source path of file
+    $output->write("\nAppending File for you\n");
+
+    try {
+        $gd->setContext($context)
+            ->setPathToFeature($relative_feature_file_path)
+            ->appendFeatures();
+
+        $path = $gd->fullPathToDestinationFile();
+        $output->write(sprintf("File now updated in %s for you to work on", $path));
+    } catch (\Exception $e) {
+        $output->write(sprintf("Error initializing \nMESSAGE: %s\n", $e->getMessage()));
+    }
 
 })->defaults([
     'context' => "domain"
-])->descriptions("This will stuff out your feature into a Dusk Test file",
+])->descriptions("This will append new Scenarios and Steps from the feature file",
     [
         '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
         "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"

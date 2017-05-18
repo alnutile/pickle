@@ -9,10 +9,12 @@ use Behat\Gherkin\Loader\GherkinFileLoader;
 use Behat\Gherkin\Loader\YamlFileLoader;
 use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
+use GD\Helpers\AppendFile;
 use GD\Helpers\BuildOutContent;
 use GD\Helpers\WriteBrowserFile;
 use GD\Helpers\WritePHPUnitFile;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\Yaml\Yaml;
 
 class GherkinToDusk extends BaseGherkinToDusk
@@ -46,9 +48,36 @@ class GherkinToDusk extends BaseGherkinToDusk
     protected $write_unit_test;
 
     /**
+     * @var AppendFile
+     */
+    protected $append_unit_test;
+
+    /**
      * @var WriteBrowserFile
      */
     protected $write_browser_test;
+    
+    public function appendFeatures()
+    {
+        $this->loadFileContent();
+        $this->buildDuskTestName();
+        $this->passThroughParser();
+        $this->breakIntoMethods();
+
+        switch ($this->context) {
+            case 'unit':
+            case 'domain':
+                $this->featureAppendToUnit();
+                break;
+            case 'ui':
+            case 'browser':
+                //$this->featureToBrowser();
+                break;
+            default:
+                //more coming soon
+                break;
+        }
+    }
 
     public function initializeFeature()
     {
@@ -86,6 +115,15 @@ class GherkinToDusk extends BaseGherkinToDusk
         );
     }
 
+    protected function featureAppendToUnit()
+    {
+        $this->getAppendUnitTest()->writeTest(
+            $this->getDestinationFolderRoot(),
+            $this->getDuskTestName(),
+            $this->getDuskClassAndMethods()
+        );
+    }
+    
     protected function featureToUnit()
     {
         $this->checkIfFileExists();
@@ -239,6 +277,7 @@ class GherkinToDusk extends BaseGherkinToDusk
         return $this;
     }
 
+
     public function getWriteUnitTest()
     {
 
@@ -260,6 +299,33 @@ class GherkinToDusk extends BaseGherkinToDusk
         }
 
         $this->write_unit_test = $write_unit_test;
+        return $this;
+    }
+
+    /**
+     * @return $append_unit_test AppendFile
+     */
+    public function getAppendUnitTest()
+    {
+
+        if (!$this->append_unit_test) {
+            $this->setAppendUnitTest();
+        }
+
+        return $this->append_unit_test;
+    }
+
+    /**
+     * @param AppendFile $append_unit_test
+     * @return GherkinToDusk
+     */
+    public function setAppendUnitTest($append_unit_test = null)
+    {
+        if (!$append_unit_test) {
+            $append_unit_test = new AppendFile();
+        }
+
+        $this->append_unit_test = $append_unit_test;
         return $this;
     }
 
