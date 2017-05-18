@@ -31,6 +31,11 @@ abstract class WriteFileBase
         return $this->write_class_name;
     }
 
+    public function setWriteClassName($name)
+    {
+        $this->write_class_name = $name;
+    }
+
 
     /**
      * @return Filesystem
@@ -143,8 +148,10 @@ abstract class WriteFileBase
 
     protected function saveToFile()
     {
+        $path = sprintf("%s/%s.php", $this->write_destination_folder_path, $this->write_class_name);
+
         $this->getFilesystem()->put(
-            sprintf("%s/%s.php", $this->write_destination_folder_path, $this->write_class_name),
+            $path,
             $this->dusk_class_and_methods_string
         );
     }
@@ -165,7 +172,8 @@ abstract class WriteFileBase
     public function setExistingTestContent($existing_test_content = null)
     {
         if (!$existing_test_content) {
-            $file_to_append = $this->write_destination_folder_path . '/' . $this->write_class_name . '.php';
+            $file_to_append = $this->write_destination_folder_path . '/' . $this->getWriteClassName() . '.php';
+
             $content = $this->getFilesystem()->get($file_to_append);
             $this->existing_test_content = $content;
         }

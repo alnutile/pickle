@@ -5,13 +5,14 @@ namespace GD\Tests;
 
 use GD\Exceptions\TestDoesNotFileExists;
 
-class AppendFileTest extends TestCase
+class AppendBrowserFileTest extends TestCase
 {
 
     public function setUp()
     {
         parent::setUp();
-        $this->setupFolderAndAppendFile();
+        $this->default_test_type = 'browser';
+        $this->setupFolderAndAppendBrowserFile();
     }
 
     public function tearDown()
@@ -20,68 +21,51 @@ class AppendFileTest extends TestCase
         $this->cleanUpFile();
     }
 
-    public function testShouldSetContentOfFileToAppend()
+    public function testBrowserShouldSetContentOfFileToAppend()
     {
 
-        //Arrange
-        //setup the files
-        //  the one with the new methods
-        //  the destination to add it to
-        $path = $this->gd->getDestinationFolderRoot() . '/TestAppendTest.php';
+        $path = $this->gd->setContext('browser')->getDestinationFolderRoot() . '/TestAppendTest.php';
         \PHPUnit_Framework_Assert::assertFileExists($path);
 
         $path = 'tests/features/test_append.feature';
 
-        //Act
-        //run as normal eg pickle append path/to/feature
         $this->gd->setPathToFeature($path)
             ->appendFeatures();
 
-        //Assert
-        //not duplicates
-        //new ones added
-        $this->assertNotNull($this->gd->getAppendUnitTest()->getExistingTestContent());
+        $this->assertNotNull($this->gd->getAppendBrowserTest()->getExistingTestContent());
 
-        $this->assertContains("thenICanNotGoIntoEditMode", $this->gd->getAppendUnitTest()->getUpdatedContent());
-        $this->assertContains("andTheLastNameOfFoo", $this->gd->getAppendUnitTest()->getUpdatedContent());
-        $this->assertContains("thenICanSeeTheFirstNameOfFoo", $this->gd->getAppendUnitTest()->getUpdatedContent());
-        $this->assertContains("andIGoToLookAtTheProfileOfUserBar", $this->gd->getAppendUnitTest()->getUpdatedContent());
-        $this->assertContains("givenIAmLoggedInAsUserFoo", $this->gd->getAppendUnitTest()->getUpdatedContent());
-        $this->assertContains("testGuestViewsProfile", $this->gd->getAppendUnitTest()->getUpdatedContent());
+        $content = $this->gd->getAppendBrowserTest()->getUpdatedContent();
+        
+        $this->assertContains("thenICanNotGoIntoEditMode", $content);
+        $this->assertContains("andTheLastNameOfFoo", $content);
+        $this->assertContains("thenICanSeeTheFirstNameOfFoo", $content);
+        $this->assertContains("andIGoToLookAtTheProfileOfUserBar", $content);
+        $this->assertContains("givenIAmLoggedInAsUserFoo", $content);
+        $this->assertContains("testGuestViewsProfile", $content);
     }
 
-    public function testShouldNotAddDuplicateMethods()
+    public function testShouldNotAddDuplicateMethodsForBrowserAppend()
     {
-
-        $path = $this->gd->getDestinationFolderRoot() . '/tests/Unit/TestAppendTest.php';
-        \PHPUnit_Framework_Assert::assertFileNotExists($path);
 
         $path = 'tests/features/test_append.feature';
 
-
-        //Act
-        //run as normal eg pickle append path/to/feature
-
-        $this->gd->setPathToFeature($path)
+        $this->gd->setContext('browser')
+            ->setPathToFeature($path)
             ->appendFeatures();
         
-        //Assert
-        //not duplicates
-        //new ones added
-
-        $string = $this->gd->getAppendUnitTest()->getDuskClassAndMethodsString();
+        $string = $this->gd->getAppendBrowserTest()->getDuskClassAndMethodsString();
         $found = substr_count($string, 'protected function givenIHaveAProfileCreated');
 
         \PHPUnit_Framework_Assert::assertEquals(1, $found);
     }
 
-    public function testCompareResultsToFixture()
+    public function testCompareBrowserResultsToFixture()
     {
-
-        $results_path = $this->gd->getDestinationFolderRoot() . '/TestAppendTest.php';
+        $results_path = $this->gd
+                ->setContext('browser')
+                ->getDestinationFolderRoot() . '/TestAppendTest.php';
 
         $path = 'tests/features/test_append.feature';
-
 
         $this->gd->setPathToFeature($path)
             ->appendFeatures();
@@ -112,11 +96,7 @@ class AppendFileTest extends TestCase
 
         $path = 'tests/features/test_append_not_there.feature';
 
-
-        //Act
-        //run as normal eg pickle append path/to/feature
-
-        $this->gd->setPathToFeature($path)
+        $this->gd->setContext('browser')->setPathToFeature($path)
             ->appendFeatures();
     }
 }

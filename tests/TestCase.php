@@ -51,6 +51,39 @@ class TestCase extends PHPUnit_Framework_TestCase
         $this->gd = new \GD\GherkinToDusk($this->file, $parser);
     }
 
+    protected function setupFolderAndAppendBrowserFile()
+    {
+        $path = $this->gd->getSourcePath();
+
+        /**
+         * This can be come a path relative issue
+         */
+        if (!$this->file->exists($path)) {
+            $this->file->makeDirectory($path, 0777, true);
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/features/test_append.feature',
+                $this->gd->getSourcePath() . 'test_append.feature'
+            );
+
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/features/test_append.feature',
+                $this->gd->getSourcePath() . 'test_append_not_there.feature'
+            );
+        }
+
+        $path = $this->gd->setContext($this->default_test_type)->getDestinationFolderRoot();
+
+        /**
+         * This can be come a path relative issue
+         */
+        if (!$this->file->exists($path)) {
+            $this->file->makeDirectory($path, 0777, true);
+            $this->file->copy(
+                $this->gd->getSourcePath() . '../fixtures/TestNamingTest.phpBROWSER_APPEND_BEFORE_EXAMPLE',
+                $path . '/TestAppendTest.php'
+            );
+        }
+    }
 
     protected function setupFolderAndAppendFile()
     {

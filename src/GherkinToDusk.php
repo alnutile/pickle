@@ -9,6 +9,7 @@ use Behat\Gherkin\Loader\GherkinFileLoader;
 use Behat\Gherkin\Loader\YamlFileLoader;
 use Behat\Gherkin\Parser;
 use GD\Exceptions\MustSetFileNameAndPath;
+use GD\Helpers\AppendBrowserFile;
 use GD\Helpers\AppendFile;
 use GD\Helpers\BuildOutContent;
 use GD\Helpers\WriteBrowserFile;
@@ -56,6 +57,11 @@ class GherkinToDusk extends BaseGherkinToDusk
      * @var WriteBrowserFile
      */
     protected $write_browser_test;
+
+    /**
+     * @var \GD\Helpers\AppendBrowserFile
+     */
+    protected $append_browser_test;
     
     public function appendFeatures()
     {
@@ -71,7 +77,7 @@ class GherkinToDusk extends BaseGherkinToDusk
                 break;
             case 'ui':
             case 'browser':
-                //$this->featureToBrowser();
+                $this->featureAppendToBrowser();
                 break;
             default:
                 //more coming soon
@@ -109,6 +115,15 @@ class GherkinToDusk extends BaseGherkinToDusk
         $this->checkIfFileExists();
 
         $this->getWriteBrowserTest()->writeTest(
+            $this->getDestinationFolderRoot(),
+            $this->getDuskTestName(),
+            $this->getDuskClassAndMethods()
+        );
+    }
+
+    protected function featureAppendToBrowser()
+    {
+        $this->getAppendBrowserTest()->writeTest(
             $this->getDestinationFolderRoot(),
             $this->getDuskTestName(),
             $this->getDuskClassAndMethods()
@@ -336,5 +351,31 @@ class GherkinToDusk extends BaseGherkinToDusk
             $message = sprintf("The test file exists already %s please use `append` command", $path);
             throw new \GD\Exceptions\TestFileExists($message);
         }
+    }
+
+    /**
+     * @return Helpers\AppendBrowserFile
+     */
+    public function getAppendBrowserTest()
+    {
+        if (!$this->append_browser_test) {
+            $this->setAppendBrowserTest();
+        }
+
+        return $this->append_browser_test;
+    }
+
+    /**
+     * @param Helpers\AppendBrowserFile $append_browser_test
+     * @return $this
+     */
+    public function setAppendBrowserTest($append_browser_test = null)
+    {
+        if (!$append_browser_test) {
+            $append_browser_test = new AppendBrowserFile();
+        }
+
+        $this->append_browser_test = $append_browser_test;
+        return $this;
     }
 }
