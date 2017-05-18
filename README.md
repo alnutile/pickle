@@ -179,10 +179,110 @@ Setting the Browser as global set we can work one step at a time
   * submit
   * look for results 
   
+  
+### Appending Tests
+
+As you add new Scenarios you need to then update the Class file.
+
+For example
+
+```
+Feature: Test Profile Page
+  Can See and Edit my profile
+  As a user of the system
+  So I can manage my profile
+
+  Scenario: Edit Profile
+    Given I have a profile created
+    And I am in edit mode
+    Then I can change the first name
+    And the last name
+    And and save my settings
+    Then when I view my profile it will have those new settings
+
+
+  Scenario: View Profile
+    Given I have a profile created
+    And I am in view mode
+    Then I can see the first name
+    And the last name
+```
+
+Now that test we ran `pickle initialize tests/features/test_profile.feature`
+
+We now need to append more to it so we run
+
+`pickle append tests/features/test_profile.feature`
+
+or
+
+`pickle append --context=browser tests/features/test_profile.feature`
+
+This will add the new Scenario and methods making sure not to duplicate Scenarios.
+
+**WARNING**
+
+This will not update existing Scenarios
+
+For example you go from
+
+```
+  Scenario: Edit Profile
+    Given I have a profile created
+    And I am in edit mode
+    Then I can change the first name
+    And the last name
+    And and save my settings
+    Then when I view my profile it will have those new settings
+```
+
+to
+
+```
+  Scenario: Edit Profile
+    Given I have a profile created
+    And I am in edit mode
+    Then I can change the first name
+    And the last name
+    And I can add my photo
+    And and save my settings
+    Then when I view my profile it will have those new settings
+```
+
+So the new line `And I can add my photo` will show up as a method
+
+```
+protected function andICanAddMyPhoto() {
+   $this->markIncomplete("Time to Code");
+ }
+```
+
+but it will not add it to the `Scenario` step as seen after initialize as 
+
+```
+    public function testEditProfile()
+    {
+        $this->browse(function (Browser $browser) {
+            $this->browser = $browser;
+            $this->foo();
+            $this->bar();
+        });
+    }
+```
+
+You just need to add it, to the correct ordered location before or after
+
+```
+$this->foo();
+$this->bar();
+```
+
+
+  
 <a name="roadmap"></a>
 ## RoadMap
 
-### Initialize (IN PROGRESS)
+### Initialize (DONE)
 
 The ability to use a Gherkin file to create a Unit or Browser test
 
@@ -195,7 +295,7 @@ I will take that one asap
 Right now the test show it working now I need to add it to the global command
 
 
-### Append Snippets (NEXT)
+### Append Snippets (DONE)
 
 The ability to add more steps and scenarios to existing Unit and Browser tests
 
@@ -206,7 +306,7 @@ So if they add new steps or scenarios to the feature pickle is smart enough to a
 
 Everything! I mean I have code to prevent duplicate methods.
 
-### Run from Gherkin
+### Run from Gherkin (DONE)
 
 Running from the Gherkin test either the domain or ui test with nice Gherkin based output
 
@@ -231,7 +331,7 @@ Everything!
   * Good Docs
 
 
-### Running pickle runs folders
+### Running pickle runs folders (NEXT)
 
 Instead of `pickle run tests/features/foo.feature` just running `pickle run` should work
 
