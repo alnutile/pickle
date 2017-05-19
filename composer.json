@@ -4,7 +4,8 @@
     "description": "Gherkin to Dusk",
     "keywords": [
         "alnutile",
-        "gd"
+        "bdd",
+        "laravrel"
     ],
     "homepage": "https://github.com/alnutile/gd",
     "license": "MIT",

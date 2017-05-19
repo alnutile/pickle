@@ -371,8 +371,6 @@ First install the Global Composer Tool to help
 composer global require consolidation/cgr
 ```
 
-> NOTE: `cgr global update pfizer/pfaws` is good to run before using since it will be updated a lot
-
 Then make sure that `~/.composer/vendor/bin to your $PATH`
 
 You might have this already
@@ -410,7 +408,7 @@ different tools.  Use 'cgr' wherever 'composer global require' is recommended.
 Now
 
 ```
-cgr global require alnutile/pickle
+cgr global require alnutile/pickle:*
 ```
 
 and to upgrade often
@@ -423,10 +421,8 @@ cgr global update alnutile/pickle
 now you should be able to run from any location on your Mac
 
 ```
-pickle
+pickle help
 ```
-
-
 
 
 <a name="testing"></a>
