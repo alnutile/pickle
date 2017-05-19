@@ -52,7 +52,7 @@ $app->command('append [--context=] relative_feature_file_path', function (
             ->appendFeatures();
 
         $path = $gd->fullPathToDestinationFile();
-        $output->write(sprintf("File now updated in %s for you to work on", $path));
+        $output->writeln(sprintf("File now updated in %s for you to work on", $path));
     } catch (\Exception $e) {
         $output->write(sprintf("Error initializing \nMESSAGE: %s\n", $e->getMessage()));
     }

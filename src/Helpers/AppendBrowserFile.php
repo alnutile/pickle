@@ -6,6 +6,8 @@ namespace GD\Helpers;
 class AppendBrowserFile extends AppendFileBase
 {
 
+    protected $spacing = "    ";
+
     protected function addParentContent($parent_function)
     {
         $parent_base = __DIR__ . '/../../stubs/browser_parent.txt';

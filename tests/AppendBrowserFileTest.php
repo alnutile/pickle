@@ -72,6 +72,7 @@ class AppendBrowserFileTest extends TestCase
 
         $results_content = $this->file->get($results_path);
 
+        $this->assertContains('$this->browse(function (Browser $browser)', $results_content);
         $this->assertContains("protected function thenICanNotGoIntoEditMode", $results_content);
         $this->assertContains("protected function andTheLastNameOfFoo", $results_content);
         $this->assertContains("protected function thenICanSeeTheFirstNameOfFoo", $results_content);

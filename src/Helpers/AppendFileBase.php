@@ -47,21 +47,6 @@ abstract class AppendFileBase extends WriteFileBase
         $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . "\n}";
     }
 
-    protected function addParentContent($parent_function)
-    {
-        $parent_base = __DIR__ . '/../../stubs/parent.txt';
-        $this->base = $this->getFilesystem()->get($parent_base);
-
-        parent::addParentContent($parent_function);
-    }
-
-    protected function addSteps(array $steps)
-    {
-        $path = __DIR__ . '/../../stubs/step.txt';
-        $this->step_template = $this->getFilesystem()->get($path);
-
-        parent::addSteps($steps);
-    }
 
     protected function convertDuskClassAndMethodsArrayToText($dusk_class_and_methods)
     {
