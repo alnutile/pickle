@@ -81,11 +81,11 @@ class AppendBrowserFileTest extends TestCase
         $this->assertContains("public function testGuestViewsProfile", $results_content);
 
         $string = '
-        $this->givenIAmLoggedInAsUserFoo();
-        $this->andIGoToLookAtTheProfileOfUserBar();
-        $this->thenICanSeeTheFirstNameOfFoo();
-        $this->andTheLastNameOfFoo();
-        $this->thenICanNotGoIntoEditMode();';
+            $this->givenIAmLoggedInAsUserFoo();
+            $this->andIGoToLookAtTheProfileOfUserBar();
+            $this->thenICanSeeTheFirstNameOfFoo();
+            $this->andTheLastNameOfFoo();
+            $this->thenICanNotGoIntoEditMode();';
         $this->assertContains($string, $results_content);
     }
 
