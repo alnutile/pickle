@@ -25,6 +25,8 @@
 <a name="overview"></a>
 ## Overview
 
+![](docs/images/pickle.jpg)
+
 Gherkin to Dusk / PHPUnit
 
 This will attempt to make a easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
