@@ -55,13 +55,13 @@ Feature: Test Profile Page
 So at this point I can type
 
 ```
-vendor/bin/pickle initialize tests/features/profile.feature  --unit
+vendor/bin/pickle initialize tests/features/profile.feature 
 ```
 
 or 
 
 ```
-vendor/bin/pickle initialize tests/features/profile.feature  --browser
+vendor/bin/pickle initialize --context=browser tests/features/profile.feature
 ```
 
 In this case let's focus on domain.
@@ -104,7 +104,7 @@ Now this is just icing on the cake and you can just default back to the basics
 and it will all still work.
 
 ```
-vendor/bin/pickle run --context=domain tests/features/profile.feature 
+vendor/bin/pickle run tests/features/profile.feature 
 ```
 
 Or now using just go back to using PHPUnit
@@ -116,7 +116,7 @@ phpunit tests/Unit/ProfileTest.php
 Or Dusk via Pickle
 
 ```
-vendor/bin/pickle run --context=ui tests/features/profile.feature 
+vendor/bin/pickle run --context=browser tests/features/profile.feature 
 ```
 
 Or via Dusk
