@@ -363,11 +363,69 @@ Now to get `pickle --tags=@happy_path` to work.
 <a name="install"></a>
 ## Install
 
-Global install coming soon...
- 
-Right now to get working just download and run "composer install" and you are set.
+First install the Global Composer Tool to help
 
-But it will be a global command eventually not a package in a Laravel app
+```
+composer global require consolidation/cgr
+```
+
+> NOTE: `cgr global update pfizer/pfaws` is good to run before using since it will be updated a lot
+
+Then make sure that `~/.composer/vendor/bin to your $PATH`
+
+You might have this already
+
+eg edit your ~/.bash_profile and add
+
+```
+export PATH=~/.composer/vendor/bin:$PATH
+```
+
+Then type
+
+```
+source ~/.bash_profile
+```
+
+Now if you type
+```
+cgr --help
+```
+
+You should get some output like this
+
+```
+The 'cgr' tool is a "safer" alternative to 'composer global require'.
+Installing projects with cgr helps avoid dependency conflicts between
+different tools.  Use 'cgr' wherever 'composer global require' is recommended.
+
+.....
+.....
+.....
+
+```
+
+Now
+
+```
+cgr global require alnutile/pickle
+```
+
+and to upgrade often
+
+
+```
+cgr global update alnutile/pickle
+```
+
+now you should be able to run from any location on your Mac
+
+```
+pickle
+```
+
+
+
 
 <a name="testing"></a>
 ## Testing
