@@ -22,7 +22,7 @@ class WriteFileTest extends TestCase
 
     public function testShouldMakeFileWithCorrectName()
     {
-        $path = $this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php';
+        $path = $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php';
         \PHPUnit_Framework_Assert::assertFileNotExists($path);
 
         $path = 'tests/features/test_naming.feature';
@@ -31,7 +31,7 @@ class WriteFileTest extends TestCase
 
 
         \PHPUnit_Framework_Assert::assertEquals(
-            getcwd() . '/tests/Unit',
+            getcwd() . '/tests/Feature',
             $this->gd->getDestinationFolderRoot()
         );
 
@@ -42,7 +42,7 @@ class WriteFileTest extends TestCase
 
     public function testFileShouldMatchExpected()
     {
-        $path = $this->gd->getDestinationFolderRoot() . '/tests/Unit/TestNamingTest.php';
+        $path = $this->gd->getDestinationFolderRoot() . '/TestNamingTest.php';
         \PHPUnit_Framework_Assert::assertFileNotExists($path);
 
         $path = 'tests/features/test_naming.feature';

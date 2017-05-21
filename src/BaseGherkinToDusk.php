@@ -260,12 +260,12 @@ class BaseGherkinToDusk
     {
         switch ($this->context) {
             case "domain":
-                return "Unit";
+                return "Feature";
             case "ui":
             case "browser":
                 return "Browser";
             default:
-                return "Unit";
+                return "Feature";
         }
     }
 }

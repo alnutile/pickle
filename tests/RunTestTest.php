@@ -20,14 +20,14 @@ class RunTestTest extends TestCase
 
     protected function makeFolderAndFile()
     {
-        $this->file->makeDirectory(__DIR__ . '/Unit');
-        $this->file->put(__DIR__ . '/Unit/FooTest.php', "Foo");
+        $this->file->makeDirectory(__DIR__ . '/Feature');
+        $this->file->put(__DIR__ . '/Feature/FooTest.php', "Foo");
     }
 
     protected function removeFolder()
     {
-        if ($this->file->exists(__DIR__ . '/Unit')) {
-            $this->file->deleteDirectory(__DIR__ . '/Unit');
+        if ($this->file->exists(__DIR__ . '/Feature')) {
+            $this->file->deleteDirectory(__DIR__ . '/Feature');
         }
     }
 
@@ -48,8 +48,8 @@ class RunTestTest extends TestCase
 
         $runner->handleDomain("/tests/features/foo.feature");
 
-        $this->assertEquals($runner->fullPathToDestinationFile(), __DIR__ . "/Unit/FooTest.php");
-        $command = sprintf("vendor/bin/phpunit %s", __DIR__ . "/Unit/FooTest.php");
+        $this->assertEquals($runner->fullPathToDestinationFile(), __DIR__ . "/Feature/FooTest.php");
+        $command = sprintf("vendor/bin/phpunit %s", __DIR__ . "/Feature/FooTest.php");
         $this->assertEquals($runner->getCommand(), $command);
     }
 

@@ -66,7 +66,7 @@ vendor/bin/pickle initialize tests/features/profile.feature  --browser
 
 In this case let's focus on domain.
 
-Now it will make a test for me in `tests/Unit/ProfileTest.php`
+Now it will make a test for me in `tests/Feature/ProfileTest.php`
 
 and I can start working on that file which would look something like this
 
@@ -110,7 +110,7 @@ vendor/bin/pickle run --context=domain tests/features/profile.feature
 Or now using just go back to using PHPUnit
 
 ```
-phpunit tests/Unit/ProfileTest.php
+phpunit tests/Feature/ProfileTest.php
 ```
 
 Or Dusk via Pickle
@@ -318,7 +318,7 @@ eg
 pickle run tests/features/profile.feature --domain
 ```
 
-And it would know to use the `tests/Unit/ProfileTest.php`
+And it would know to use the `tests/Feature/ProfileTest.php`
 
 and output in that nice Gherkin format like Behat.
 
