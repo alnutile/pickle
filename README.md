@@ -9,9 +9,27 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+
+<a name="overview"></a>
+## Overview
+
+![](https://dl.dropboxusercontent.com/s/7ek8r3477lljab4/pickle.jpg?dl=0)
+
+Converting Gherkin file to PHPUnit Compatible and Dusk Compatible files.
+
+This will attempt to make an easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
+
+
+If you are familiar with Behat then this workflow might be similar.
+
+
+One of the key aspects I will talk about later is how I can use one file to drive two types of tests, Integration then Browser. And how the Gherkin syntax can influence how I name my classes in line with the business writing of the feature <sup><a href="#bdd">2</a></sup>.
+
+![](https://dl.dropboxusercontent.com/s/44lfxdd2wxrorcv/one_file.png?dl=0)
+
+
 ## Topics
 
-  * [Overview](#overview)
   * [UI Example](#ui)
   * [Running](#running)
   * [RoadMap](#roadmap)
@@ -22,20 +40,11 @@
   * [Credits](#credits)
   * [License](#license)
 
-<a name="overview"></a>
-## Overview
+### Initialize 
 
-![](docs/images/pickle.jpg)
+In this example I have written a feature <sup><a href="#feature">1</a></sup> file and now I want to turn that into my first PHPUnit compatible test.
 
-Gherkin to Dusk / PHPUnit
-
-This will attempt to make a easy way to work with Dusk and PHPUnit from a Gherkin formatted file.
-In someways Behat but built around Dusk and PHPUnit and how it goes about making the underlying
-framework and testing work seamlessly.
-
-
-### Initialize
-For example I make a file `tests/feature/profile.feature`
+For example I make a file `tests/feature/profile.feature`	
 
 ```
 Feature: Test Profile Page
@@ -52,19 +61,21 @@ Feature: Test Profile Page
     Then when I view my profile it will have those new settings
 ```
 
+>NOTE: the above feature does not really summarize the goal in business terms it is still quite a bit focused on the web.
+
 So at this point I can type
 
 ```
 vendor/bin/pickle initialize tests/features/profile.feature 
 ```
 
-or 
+or for a Browser test
 
 ```
 vendor/bin/pickle initialize --context=browser tests/features/profile.feature
 ```
 
-In this case let's focus on domain.
+In this case let's focus on domain context eg Integration.
 
 Now it will make a test for me in `tests/Feature/ProfileTest.php`
 
@@ -107,7 +118,7 @@ and it will all still work.
 vendor/bin/pickle run tests/features/profile.feature 
 ```
 
-Or now using just go back to using PHPUnit
+Or just go back to using PHPUnit
 
 ```
 phpunit tests/Feature/ProfileTest.php
@@ -128,7 +139,10 @@ php artisan dusk tests/Browser/ProfileTest.php
 <a name="ui"></a>
 ### UI Example
 
-Here is an example of what a Dusk UI test will then look like
+Here is an example of what a Dusk UI test will then look like.
+
+After I am done with my Integration tests and all the work is in place I can start on this.
+
 
 ```
 <?php
@@ -446,6 +460,26 @@ If you discover any security related issues, please email me@alfrednutile.info i
 
 - [Alfred Nutile][link-author]
 - [All Contributors][link-contributors]
+
+
+## Footnotes
+
+<a name="feature">1</a> Feature files are written in Gherkin. You can see some examples [here](https://github.com/alnutile/recipes/blob/master/features/profile/home.feature)
+
+The "Feature" area gives the feature a title then sense
+
+  * What is being built
+  * Who it is being built for
+  * What is the business result
+  
+Then then leads into the "Scenarios"
+
+
+<a name="bdd">2</a>
+
+You can read more about BDD [here](http://stakeholderwhisperer.com/posts/2014/10/introducing-modelling-by-example) 
+ 
+
 
 <a name="license"></a>
 ## License
