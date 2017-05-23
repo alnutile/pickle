@@ -139,9 +139,17 @@ php artisan dusk tests/Browser/ProfileTest.php
 <a name="ui"></a>
 ### UI Example
 
-Here is an example of what a Dusk UI test will then look like.
 
-After I am done with my Integration tests and all the work is in place I can start on this.
+
+After I am done with my Integration tests and all that work is in place I can start on the Browser tests.
+
+So I run the command 
+
+```
+vendor/bin/pickle run --context=browser tests/features/profile.feature 
+```
+
+And I get 
 
 
 ```
@@ -171,6 +179,8 @@ class ExampleTest extends DuskTestCase
             $this->browser = $browser;
             $this->visitHome();
             $this->seeSomething();
+            //etc...
+            //etc...
         });
     }
 
@@ -187,7 +197,7 @@ class ExampleTest extends DuskTestCase
 
 ```
 
-Setting the Browser as global set we can work one step at a time 
+By setting the `$this->browser` as global I can work one step or function at a time:
 
   * visit the page
   * enter a form field 
@@ -198,7 +208,7 @@ Setting the Browser as global set we can work one step at a time
   
 ### Appending Tests
 
-As you add new Scenarios you need to then update the Class file.
+As here is an example of when you need to add new Scenarios to a feature file and you need to then update the Class file.
 
 For example
 
@@ -216,15 +226,13 @@ Feature: Test Profile Page
     And and save my settings
     Then when I view my profile it will have those new settings
 
-
+  @new_scenario
   Scenario: View Profile
     Given I have a profile created
     And I am in view mode
     Then I can see the first name
     And the last name
 ```
-
-Now that test we ran `pickle initialize tests/features/test_profile.feature`
 
 We now need to append more to it so we run
 
@@ -236,11 +244,11 @@ or
 
 This will add the new Scenario and methods making sure not to duplicate Scenarios.
 
-**WARNING**
+🤖🤖**WARNING**🤖🤖
 
 This will not update existing Scenarios
 
-For example you go from
+For example you modify this Scenario
 
 ```
   Scenario: Edit Profile
@@ -273,7 +281,7 @@ protected function andICanAddMyPhoto() {
  }
 ```
 
-but it will not add it to the `Scenario` step as seen after initialize as 
+**but** it will not add it to the `Scenario` step as seen after initialize as 
 
 ```
     public function testEditProfile()
@@ -291,6 +299,7 @@ You just need to add it, to the correct ordered location before or after
 ```
 $this->foo();
 $this->bar();
+$this->andICanAddMyPhoto();
 ```
 
 
@@ -339,57 +348,30 @@ and output in that nice Gherkin format like Behat.
 
 #### Todo
 
-Everything! 
 
-### Finalize Docs around this global command
+I will track these as Issues [here](https://github.com/alnutile/pickle/issues)
 
-  * Intro Video explaining what and why
-  * Good Docs
+And as much as possible / soon in Projects [here](https://github.com/alnutile/pickle/projects/1)
 
-
-### Running pickle runs folders (NEXT)
-
-Instead of `pickle run tests/features/foo.feature` just running `pickle run` should work
-
-
-### Tags
-
-Since I am using the Behat Gherkin library we have access to tags `pickle:24` shows 
-
-```
-$pimple[\Behat\Gherkin\Parser::class] = function() {
-    $il8n = __DIR__ . '/../src/i18n.yml';
-
-    $keywords = new CucumberKeywords($il8n);
-
-    $keywords->setLanguage('en');
-
-    $lexer = new Lexer($keywords);
-
-    $parser = new Parser($lexer);
-    return $parser;
-};
-
-```
-
-Now to get `pickle --tags=@happy_path` to work.
 
 
 
 <a name="install"></a>
 ## Install
 
-First install the Global Composer Tool to help
+First you need to install the Global Composer Tool to help over all [learn more](https://packagist.org/packages/consolidation/cgr)
+
 
 ```
 composer global require consolidation/cgr
 ```
 
-Then make sure that `~/.composer/vendor/bin to your $PATH`
+Then make sure that `~/.composer/vendor/bin` to your $PATH`
 
 You might have this already
 
-eg edit your ~/.bash_profile and add
+eg edit your ~/.bash_profile` and add
+
 
 ```
 export PATH=~/.composer/vendor/bin:$PATH
@@ -419,23 +401,24 @@ different tools.  Use 'cgr' wherever 'composer global require' is recommended.
 
 ```
 
-Now
+**Now for Pickle**
 
 ```
 cgr global require alnutile/pickle:*
-```
-
-and to upgrade often
-
-
-```
-cgr global update alnutile/pickle
 ```
 
 now you should be able to run from any location on your Mac
 
 ```
 pickle help
+```
+
+
+and to upgrade often since it is a busy project
+
+
+```
+cgr global update alnutile/pickle
 ```
 
 
