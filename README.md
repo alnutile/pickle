@@ -22,12 +22,6 @@ This will attempt to make an easy way to work with Dusk and PHPUnit from a Gherk
 
 If you are familiar with Behat then this workflow might be similar.
 
-
-One of the key aspects I will talk about later is how I can use one file to drive two types of tests, Integration then Browser. And how the Gherkin syntax can influence how I name my classes in line with the business writing of the feature <sup><a href="#bdd">2</a></sup>.
-
-![](https://dl.dropboxusercontent.com/s/44lfxdd2wxrorcv/one_file.png?dl=0)
-
-
 **[Intro Video](https://youtu.be/GmA-6hnhljI)**
 
 **[Intro Slides](https://goo.gl/djVXhJ)**
@@ -66,7 +60,13 @@ Feature: Test Profile Page
     Then when I view my profile it will have those new settings
 ```
 
+One of the key aspects I will talk about later is how I can use one file to drive two types of tests, Integration then Browser. And how the Gherkin syntax can influence how I name my classes in line with the business writing of the feature <sup><a href="#bdd">2</a></sup>.
+
+![](https://dl.dropboxusercontent.com/s/44lfxdd2wxrorcv/one_file.png?dl=0)
+
+
 >NOTE: the above feature does not really summarize the goal in business terms it is still quite a bit focused on the web.
+
 
 So at this point I can type
 
