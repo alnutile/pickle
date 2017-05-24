@@ -28,6 +28,11 @@ One of the key aspects I will talk about later is how I can use one file to driv
 ![](https://dl.dropboxusercontent.com/s/44lfxdd2wxrorcv/one_file.png?dl=0)
 
 
+**[Intro Video](https://youtu.be/GmA-6hnhljI)**
+
+**[Intro Slides](https://goo.gl/djVXhJ)**
+
+
 ## Topics
 
   * [UI Example](#ui)
