@@ -4,6 +4,23 @@ All Notable changes to `pickle` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased
+
+### Added
+- method name in the output of the template for `$this->markTestIncomplete('Time to test METHOD_NAME')`
+
+### Deprectiated
+- Nothing
+
+### Fixed
+- Nothing
+
+### Remove
+- Nothing
+
+### Security
+- Nothing
+
 ## [v0.0.1] Working on APPEND - 2017-05-18
 
 ### Added
