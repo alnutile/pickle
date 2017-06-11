@@ -23,37 +23,37 @@ class TestAppendTest extends TestCase
 
     protected function givenIHaveAProfileCreated() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code givenIHaveAProfileCreated');
 
     }
 
     protected function andIAmInEditMode() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code andIAmInEditMode');
 
     }
 
     protected function thenICanChangeTheFirstName() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code thenICanChangeTheFirstName');
 
     }
 
     protected function andTheLastName() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code andTheLastName');
 
     }
 
     protected function andAndSaveMySettings() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code andAndSaveMySettings');
 
     }
 
     protected function thenWhenIViewMyProfileItWillHaveThoseNewSettings() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code thenWhenIViewMyProfileItWillHaveThoseNewSettings');
 
     }
 
@@ -70,25 +70,25 @@ class TestAppendTest extends TestCase
 
     protected function andIAmInViewMode() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code andIAmInViewMode');
 
     }
 
     protected function thenICanSeeTheFirstName() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code thenICanSeeTheFirstName');
 
     }
 
     protected function andAndGoIntoEditMode() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code andAndGoIntoEditMode');
 
     }
 
     protected function thenWhenIWillBeAtTheEditForm() {
 
-        $this->markTestIncomplete('Time to code');
+        $this->markTestIncomplete('Time to code thenWhenIWillBeAtTheEditForm');
 
     }
 

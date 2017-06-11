@@ -80,7 +80,7 @@ abstract class AppendFileBase extends WriteFileBase
         $found = substr_count($this->dusk_class_and_methods_string, $method);
 
         if ($found < 1 && $found_existing < 1) {
-            $content = str_replace("[STEP]", $step['method_name'], $step_template);
+            $content = str_replace(["[STEP]", "[METHOD]"], $step['method_name'], $step_template);
             $this->dusk_class_and_methods_string = $this->dusk_class_and_methods_string . $content;
         }
     }
