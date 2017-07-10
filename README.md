@@ -68,16 +68,16 @@ One of the key aspects I will talk about later is how I can use one file to driv
 >NOTE: the above feature does not really summarize the goal in business terms it is still quite a bit focused on the web.
 
 
-So at this point I can type
+So at this point I can type, assuming you installed Pickle globally as I cover below:
 
 ```
-vendor/bin/pickle initialize tests/features/profile.feature 
+pickle initialize tests/features/profile.feature 
 ```
 
-or for a Browser test
+or for a Browser test:
 
 ```
-vendor/bin/pickle initialize --context=browser tests/features/profile.feature
+pickle initialize --context=browser tests/features/profile.feature
 ```
 
 In this case let's focus on domain context eg Integration.
@@ -120,7 +120,7 @@ Now this is just icing on the cake and you can just default back to the basics
 and it will all still work.
 
 ```
-vendor/bin/pickle run tests/features/profile.feature 
+pickle run tests/features/profile.feature 
 ```
 
 Or just go back to using PHPUnit
@@ -132,7 +132,7 @@ phpunit tests/Feature/ProfileTest.php
 Or Dusk via Pickle
 
 ```
-vendor/bin/pickle run --context=browser tests/features/profile.feature 
+pickle run --context=browser tests/features/profile.feature 
 ```
 
 Or via Dusk
@@ -151,7 +151,7 @@ After I am done with my Integration tests and all that work is in place I can st
 So I run the command 
 
 ```
-vendor/bin/pickle run --context=browser tests/features/profile.feature 
+pickle run --context=browser tests/features/profile.feature 
 ```
 
 And I get 
