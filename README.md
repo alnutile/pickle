@@ -409,7 +409,7 @@ different tools.  Use 'cgr' wherever 'composer global require' is recommended.
 **Now for Pickle**
 
 ```
-cgr global require alnutile/pickle:*
+cgr alnutile/pickle:*
 ```
 
 now you should be able to run from any location on your Mac
@@ -423,7 +423,7 @@ and to upgrade often since it is a busy project
 
 
 ```
-cgr global update alnutile/pickle
+cgr update alnutile/pickle
 ```
 
 
