@@ -43,7 +43,7 @@ If you are familiar with Behat then this workflow might be similar.
 
 In this example I have written a feature <sup><a href="#feature">1</a></sup> file and now I want to turn that into my first PHPUnit compatible test.
 
-For example I make a file `tests/feature/profile.feature`	
+For example I make a file `tests/features/profile.feature`	
 
 ```
 Feature: Test Profile Page
@@ -409,7 +409,7 @@ different tools.  Use 'cgr' wherever 'composer global require' is recommended.
 **Now for Pickle**
 
 ```
-cgr global require alnutile/pickle:*
+cgr global require alnutile/pickle:dev-master
 ```
 
 now you should be able to run from any location on your Mac
