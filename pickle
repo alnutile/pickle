@@ -31,9 +31,9 @@ $app->command('initialize [--context=] relative_feature_file_path', function (
 
 })->defaults([
     'context' => "domain"
-])->descriptions("This will stuff out your feature into a Dusk Test file",
+])->descriptions("This will stub out your feature into a Dusk Test file",
     [
-        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
+        '--context' => "domain or ui this will help us to know what Dusk test to generate; domain is the inside code, ui is the outside",
         "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"
     ]
 );
@@ -83,9 +83,9 @@ $app->command('run [--context=] relative_feature_file_path', function (
 
 })->defaults([
     'context' => "domain"
-])->descriptions("This will stuff out your feature into a Dusk Test file",
+])->descriptions("This will execute the specified tests ",
     [
-        '--context' => "domain or ui this will help us to know what Dusk test to run domain is the inside code ui is the outside",
+        '--context' => "domain or ui this will help us to know what Dusk test to run; domain is the inside code, ui is the outside",
         "relative_feature_file_path" => "The path to the file for example tests/features/foo.feature"
     ]
 );
